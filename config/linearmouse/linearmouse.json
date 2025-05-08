@@ -1,0 +1,41 @@
+{
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0",
+  "schemes" : [
+    {
+      "scrolling" : {
+        "reverse" : {
+          "vertical" : true
+        },
+        "acceleration" : {
+          "vertical" : 1
+        }
+      },
+      "if" : {
+        "device" : {
+          "vendorID" : "0x46d",
+          "category" : "mouse",
+          "productID" : "0xc534",
+          "productName" : "USB Receiver"
+        }
+      }
+    },
+    {
+      "scrolling" : {
+        "reverse" : {
+          "vertical" : true
+        },
+        "acceleration" : {
+          "vertical" : 1
+        }
+      },
+      "if" : {
+        "device" : {
+          "productName" : "Designer Mouse",
+          "productID" : "0x805",
+          "category" : "mouse",
+          "vendorID" : "0x45e"
+        }
+      }
+    }
+  ]
+}
