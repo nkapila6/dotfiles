@@ -15,7 +15,8 @@ after-startup-command = [
 
 exec-on-workspace-change = []
 
-on-focus-changed = ['move-mouse window-lazy-center']
+#dont change mouse pos
+#on-focus-changed = ['move-mouse window-lazy-center']
 
 # Start AeroSpace at login
 start-at-login = true
@@ -42,7 +43,7 @@ default-root-container-orientation = 'auto'
 # See https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
 # See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
 # Fallback value (if you omit the key): on-focused-monitor-changed = []
-on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+#on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
@@ -67,7 +68,7 @@ automatically-unhide-macos-hidden-apps = false
     inner.vertical =   0
     outer.left =       0
     outer.bottom =     0
-    outer.top =        5
+    outer.top =        0
     outer.right =      0
 
 
@@ -243,3 +244,35 @@ alt-shift-i = 'move-workspace-to-monitor right'
 [[on-window-detected]]
 if.app-id ='com.apple.Terminal'
 run = 'move-node-to-workspace T'
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace T'
+
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = 'move-node-to-workspace D'
+
+[[on-window-detected]]
+if.app-id = 'com.automattic.beeper.desktop'
+run = 'move-node-to-workspace B'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Preview'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'net.whatsapp.WhatsApp'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari.WebApp.B4D41913-DB5F-44DD-9AE9-8AD2DFEE8643'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.github.th-ch.youtube-music'
+run = ['layout floating']
