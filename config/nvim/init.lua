@@ -2,3 +2,18 @@
 require("config.lazy")
 
 vim.cmd([[colorscheme monokai-pro]])
+
+vim.diagnostic.config({
+  virtual_text = {
+    severity = {
+      max = vim.diagnostic.severity.WARN,
+    },
+    current_line = true,
+  },
+  virtual_lines = {
+    severity = {
+      min = vim.diagnostic.severity.ERROR,
+    },
+    current_line = true,
+  },
+})
