@@ -15,7 +15,7 @@ return {
 		},
 	},
 	bar = {
-		height = 25,
+		height = 32,
 		padding = {
 			x = 10,
 			y = 0,
