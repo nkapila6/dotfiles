@@ -30,10 +30,24 @@ alias gios "az vm start --resource-group gios_group --name gios"
 alias gios-s "az vm deallocate --resource-group gios_group --name gios"
 alias ms "switchaudiosource -s 'MacBook Pro Speakers'"
 alias pas "switchaudiosource -s 'Proxy Audio Device'"
-alias n nvim
-# alias f fuck
 alias saar fuck
 alias lg lazygit
+# alias f fuck
+alias n nvim
+alias an "NVIM_APPNAME=astrovim nvim"
+alias nn "NVIM_APPNAME=nvchad nvim"
+
+function nv
+    neovide $argv &
+end
+
+function anv
+    env NVIM_APPNAME=astrovim neovide --frame buttonless $argv &
+end
+
+function nnv
+    env NVIM_APPNAME=nvchad neovide --frame buttonless $argv &
+end
 
 # thefuck
 function fuck -d "Correct your previous console command"
@@ -45,3 +59,25 @@ function fuck -d "Correct your previous console command"
         builtin history merge
     end
 end
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+
+# monokai theme for TIDE
+set --universal tide_color_frame_and_connection "#272822"
+set --universal tide_color_separator_same_color "#272822"
+
+# Prompt Items
+set --universal tide_pwd_bg_color "#272822"
+set --universal tide_pwd_color_dirs "#f8f8f2"
+
+set --universal tide_git_bg_color "#75715e"
+set --universal tide_git_color_branch "#f8f8f2"
+set --universal tide_git_color_untracked "#e6db74"
+set --universal tide_git_color_dirty "#fd971f"
+set --universal tide_git_color_staged "#a6e22e"
+
+set --universal tide_status_bg_color "#a6e22e"
+set --universal tide_status_color_failure "#f92672"
+set --universal tide_status_color_failure "#ff0000"

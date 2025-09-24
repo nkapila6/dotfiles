@@ -1,2 +1,94 @@
-theme = monokai-classic
-command = /opt/homebrew/bin/fish
+# This is the configuration file for Ghostty.
+#
+# This template file has been automatically created at the following
+# path since Ghostty couldn't find any existing config files on your system:
+#
+#   /Users/nkapila6/Library/Application Support/com.mitchellh.ghostty/config
+#
+# The template does not set any default options, since Ghostty ships
+# with sensible defaults for all options. Users should only need to set
+# options that they want to change from the default.
+#
+# Run `ghostty +show-config --default --docs` to view a list of
+# all available config options and their default values.
+#
+# Additionally, each config option is also explained in detail
+# on Ghostty's website, at https://ghostty.org/docs/config.
+
+# Config syntax crash course
+# ==========================
+# # The config file consists of simple key-value pairs,
+# # separated by equals signs.
+# font-family = Iosevka
+# window-padding-x = 2
+#
+# # Spacing around the equals sign does not matter.
+# # All of these are identical:
+# key=value
+# key= value
+# key =value
+# key = value
+#
+# # Any line beginning with a # is a comment. It's not possible to put
+# # a comment after a config option, since it would be interpreted as a
+# # part of the value. For example, this will have a value of "#123abc":
+# background = #123abc
+#
+# # Empty values are used to reset config keys to default.
+# key =
+#
+# # Some config options have unique syntaxes for their value,
+# # which is explained in the docs for that config option.
+# # Just for example:
+# resize-overlay-duration = 4s 200ms
+
+
+# config from https://ghostty.zerebos.com/app/import-export
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = true
+window-subtitle = working-directory
+background-opacity = 0.9
+background = #2d2a2e
+foreground = #fcfcfa
+selection-background = #5b595c
+selection-foreground = #fcfcfa
+cursor-color = #c1c0c0
+cursor-text = #c1c0c0
+font-family = "JetBrainsMono Nerd Font"
+font-size = 15
+font-thicken = true
+mouse-shift-capture = true
+
+# quick terminal
+keybind = global:cmd+\=toggle_quick_terminal
+quick-terminal-screen = macos-menu-bar
+quick-terminal-position = center
+
+# theme
+theme="Monokai Classic"
+# palette = 0=#272822
+# palette = 1=#f92672
+# palette = 2=#a6e22e
+# palette = 3=#e6db74
+# palette = 4=#fd971f
+# palette = 5=#ae81ff
+# palette = 6=#66d9ef
+# palette = 7=#fdfff1
+# palette = 8=#6e7066
+# palette = 9=#f92672
+# palette = 10=#a6e22e
+# palette = 11=#e6db74
+# palette = 12=#fd971f
+# palette = 13=#ae81ff
+# palette = 14=#66d9ef
+# palette = 15=#fdfff1
+# background = #272822
+# foreground = #fdfff1
+# cursor-color = #c0c1b5
+# cursor-text = #c0c1b5
+# selection-background = #57584f
+# selection-foreground = #fdfff1
+#
+# move across words, opt+left/right
+

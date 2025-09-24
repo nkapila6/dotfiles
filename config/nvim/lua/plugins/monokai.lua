@@ -1,19 +1,31 @@
 return {
-  {
-    "loctvl842/monokai-pro.nvim",
-    lazy = false, -- Colorschemes should be loaded on startup, so they are not lazy
-    priority = 1000, -- Ensures the colorscheme is loaded before other plugins that depend on it
-    config = function()
-      require("monokai-pro").setup({
-        filter = "pro", -- Choose your preferred Monokai Pro filter
-        transparent_background = false,
-        terminal_colors = true,
-        devicons = true,
-        styles = {
-          comment = { italic = true },
-          keyword = { italic = true },
-        },
-      })
-    end,
-  },
+  -- {
+  --   "loctvl842/monokai-pro.nvim",
+  --   lazy = false, -- Colorschemes should be loaded on startup, so they are not lazy
+  --   priority = 1000, -- Ensures the colorscheme is loaded before other plugins that depend on it
+  --   config = function()
+  --     require("monokai-pro").setup({
+  --       filter = "classic", -- Choose your preferred Monokai Pro filter
+  --       transparent_background = false,
+  --       terminal_colors = true,
+  --       devicons = true,
+  --       styles = {
+  --         comment = { italic = true },
+  --         keyword = { italic = true },
+  --         type = { italic = true }, -- (preferred) int, long, char, etc
+  --         storageclass = { italic = true }, -- static, register, volatile, etc
+  --         structure = { italic = true }, -- struct, union, enum, etc
+  --         parameter = { italic = true }, -- parameter pass in function
+  --         annotation = { italic = true },
+  --         tag_attribute = { italic = true },
+  --       },
+  --       background_clear = {
+  --         "telescope",
+  --         -- "notify",
+  --         -- "renamer",
+  --         -- "toggleterm",
+  --       },
+  --     })
+  --   end,
+  -- },
 }

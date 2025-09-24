@@ -1,0 +1,46 @@
+return {}
+
+-- -- ~/.config/nvim/lua/plugins/mini-animate.lua
+-- -- This is how you load a module to access its functions.
+-- local animate = require("mini.animate")
+--
+-- return {
+--   {
+--     -- The repository name
+--     "nvim-mini/mini.animate",
+--     opts = {
+--       cursor = {
+--         enable = true,
+--         -- Animate for 200 milliseconds with linear easing
+--         timing = animate.gen_timing.linear({ duration = 200, unit = "total" }),
+--
+--         -- Animate with shortest line for any cursor move
+--         path = animate.gen_path.line({
+--           predicate = function()
+--             return true
+--           end,
+--         }),
+--       },
+--       -- cursor = {
+--       --   enable = true,
+--       --   timing = function(total_ms)
+--       --     return math.ceil(total_ms / 500 * 25)
+--       --   end,
+--       --   path = animate.gen_path.line({
+--       --     predicate = function()
+--       --       return true
+--       --     end,
+--       --   }),
+--       -- },
+--       scroll = {
+--         enable = true,
+--       },
+--       open = {
+--         enable = true,
+--       },
+--       close = {
+--         enable = true,
+--       },
+--     },
+--   },
+-- }
