@@ -1,0 +1,23 @@
+minimumLimaVersion: 1.1.0
+
+arch: "x86_64"
+
+images:
+  - location: "https://cloud-images.ubuntu.com/releases/focal/release-20250624/ubuntu-20.04-server-cloudimg-amd64.img"
+    arch: "x86_64"
+
+cpus: 4
+memory: "4GiB"
+# disk: "20GiB"
+
+mounts:
+- location: "~"
+  writable: true
+
+containerd:
+  system: false
+  user: false
+
+# base:
+# - template://_images/ubuntu-20.04
+# - template://_default/mounts
