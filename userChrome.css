@@ -1,0 +1,127 @@
+/*    Menu Bar height    */
+#toolbar-menubar {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+/* Fixing title bar buttons (close/min/max) due to shortened Menu Bar height */
+#toolbar-menubar .titlebar-button {
+  padding-block: 1px !important;
+}
+
+/*    Tabs/Tab Bar height    */
+:root {
+ --tab-min-height: 20px !important;
+}
+#TabsToolbar {
+  max-height: 25px !important;
+}
+
+/* decreasing the bottom padding of the tabs toolbar */
+#TabsToolbar {
+  margin-bottom: -3px !important;
+}
+
+/*    Toolbar/Address bar/URL bar height    */
+/* partially based on https://github.com/CarterSnich/firefox-xtra-compact/blob/master/chrome/userChrome.css */
+toolbar#nav-bar {
+  height: 25px !important;
+}
+.urlbar-input-container {
+  height: 24px !important;
+  margin-top: 4px !important;
+}
+#urlbar-background {
+  height: 21px !important;
+  margin-top: 5px !important;
+}
+/* centering the url text line vertically */
+#urlbar-input {
+  padding-bottom: 2px !important;
+}
+
+/* removing the empty spaces in the toolbar sides */
+#back-button {
+  padding-left: 0px !important;
+}
+#PanelUI-menu-button {
+  padding-right: 0px !important;
+}
+
+/*    Menu Items height/padding    */
+menupopup > menu:not(bookmarksPopup), /* this is for the lines of the sub-menus/folders/containers */
+menupopup > menuitem:not(bookmarksPopup) {
+  padding-block: 3px !important; /* above and below each item */
+  margin-left: 0px !important; /* margin is the outer space around an item */
+  padding-left: 8px !important; /* padding is the inner space inside an item */
+  margin-right: 0px !important;
+  padding-right: 0px !important;
+}
+
+/* the padding of the menu itself */
+menupopup {
+  --panel-padding: 1px !important;
+}
+
+/* the text part of the item/sub-menu */
+menupopup > menu > hbox, /* this is the text part of the sub-menus/folders/containers */
+menupopup > menuitem > hbox {
+  margin-left: 0px !important;
+  margin-right: 4px !important; /* not 0px because otherwise the text appears too close to the favicon */
+}
+
+/* removing padding for separators */
+menuseparator {
+  padding-block: 0px !important;
+}
+
+/* padding for the "hamburger menu" and extensions menu in the toolbar */
+/* the values in the first line refer to the top-bottom and left-right padding respectively */
+:root{
+--arrowpanel-menuitem-padding: 1px 1px !important;
+--arrowpanel-menuitem-margin-inline: 1px !important;
+--arrowpanel-menuitem-padding-block: 1px !important;
+--panel-separator-margin-horizontal: 1px !important;
+--panel-subview-body-padding-block: 1px !important;
+}
+
+/* height/placement of the "go" arrow when typing/searching in the urlbar */
+#urlbar-go-button {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  line-height: 20px !important;
+  max-height: 20px !important;
+}
+
+/* padding of the left-side icons in the url bar */
+#tracking-protection-icon-container, #identity-icon-box, #identity-permission-box {
+  padding: 4px !important;
+}
+
+/* Vertical placement of the DRM icon in the url bar */
+#eme-notification-icon {
+  margin-top: -7px !important;
+}
+
+/* spacing/padding around addons icons in the toolbar/urlbar */
+:root {
+  --toolbarbutton-outer-padding: 0px !important;
+  --toolbarbutton-inner-padding: 5px !important;
+}
+.toolbaritem-combined-buttons:not([widget-type='button-and-view']),
+.toolbaritem-menu-buttons {
+  margin-inline: 0px !important;
+  margin-inline-start: 0px !important;
+  margin-inline-end: 0px !important;
+}
+
+/* padding of the New Tab button */
+#tabs-newtab-button {
+  padding-left: 3px !important;
+}
+
+/* padding of the site icon on a tab */
+stack.tab-icon-stack {
+  margin: -2px !important;
+}

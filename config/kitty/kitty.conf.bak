@@ -1,0 +1,26 @@
+# includes
+include quick-access-terminal.conf
+globinclude kitty.d/**/*.conf
+
+# font
+font_family family="JetBrainsMono Nerd Font"
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+
+# font size
+font_size 15.0
+enable_audio_bell yes
+
+# notif
+hide_window_decorations yes
+windows_alert_on_bell yes
+
+#copy on select
+copy_on_select clipboard
+
+
+# BEGIN_KITTY_THEME
+# Monokai Pro
+include current-theme.conf
+# END_KITTY_THEME
