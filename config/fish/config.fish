@@ -6,6 +6,8 @@ fish_add_path "$HOME/Library/Application Support/reflex/bun/bin"
 fish_add_path "/Users/nkapila6/.lmstudio/bin"
 fish_add_path /usr/local/bin
 fish_add_path $HOME/.emacs.d/bin
+fish_add_path $HOME/go/bin/
+fish_add_path "~/.config/v-analyzer/bin/"
 
 # tools
 zoxide init fish | source
@@ -22,8 +24,6 @@ end
 # aliases
 alias arm "env /usr/bin/arch -arm64 /bin/zsh --login"
 alias intel "env /usr/bin/arch -x86_64 /bin/zsh --login"
-alias l "eza --color=always --long --git --icons=always --no-user --no-permissions --header --group-directories-first"
-alias e eza
 alias ms "switchaudiosource -s 'MacBook Pro Speakers'"
 alias pas "switchaudiosource -s 'Proxy Audio Device'"
 alias lg lazygit
@@ -32,6 +32,7 @@ alias n nvim
 alias c cd
 alias an "NVIM_APPNAME=astrovim nvim"
 alias nn "NVIM_APPNAME=nvchad nvim"
+alias ls lsd
 
 function nv
     neovide $argv &
@@ -75,3 +76,6 @@ export GPG_TTY=$(tty)
 
 # startship
 starship init fish | source
+
+# Generated for envman. Do not edit.
+test -s ~/.config/envman/load.fish; and source ~/.config/envman/load.fish
