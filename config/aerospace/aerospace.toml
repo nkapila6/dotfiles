@@ -231,7 +231,7 @@ alt-shift-w = 'exec-and-forget m wallpaper --set "$(gshuf -n1 -e ~/wallpapers/*)
 alt-shift-f = 'fullscreen'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-alt-tab = 'workspace-back-and-forth'
+# alt-tab = 'workspace-back-and-forth'
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
 alt-shift-tab = ['move-workspace-to-monitor --wrap-around next']
 
