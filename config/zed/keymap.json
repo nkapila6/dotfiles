@@ -265,4 +265,10 @@
       "space .": ["task::Spawn", { "task_name": "Open Project Scratch" }],
     },
   },
+  {
+    "context": "(Workspace && !Terminal)",
+    "bindings": {
+      "cmd-r": "task::Spawn"
+    }
+  }
 ]

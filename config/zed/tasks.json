@@ -66,4 +66,9 @@
     "use_new_terminal": false,
     "reveal": "never",
   },
+  {
+    "label": "Run js file",
+    "command": "node",
+    "args": ["$ZED_FILE"],
+  },
 ]

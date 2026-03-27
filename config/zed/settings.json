@@ -7,6 +7,24 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "edit_predictions": {
+    "mode": "subtle",
+  },
+  "agent": {
+    "show_turn_stats": true,
+    "use_modifier_to_send": true,
+    "play_sound_when_agent_done": true,
+    "single_file_review": true,
+    "default_profile": "ask",
+    "default_model": {
+      "effort": "medium",
+      "provider": "zed.dev",
+      "model": "gpt-5.4",
+      "enable_thinking": true,
+    },
+    "favorite_models": [],
+    "model_parameters": [],
+  },
   "audio": {
     "experimental.rodio_audio": false,
   },
@@ -27,12 +45,13 @@
   "icon_theme": {
     "mode": "dark",
     "light": "Zed (Default)",
-    "dark": "Zed (Default)",
+    "dark": "JetBrains New UI Icons (Dark)",
   },
   "session": {
     "trust_all_worktrees": true,
   },
   "vim_mode": true,
+  "vim": {},
   "relative_line_numbers": "enabled",
   "base_keymap": "VSCode",
   "ui_font_size": 16,
@@ -40,9 +59,26 @@
   "theme": {
     "mode": "dark",
     "light": "Gruvbox Light",
-    "dark": "Gruvbox Dark",
+    "dark": "Zedokai (Filter Spectrum)",
   },
-  // "lsp": {
-  // c, cpp, go,
-  // },
+  "lsp": {
+    // c, cpp, go,
+    "golangci-lint": {
+      "initialization_options": {
+        "command": [
+          "golangci-lint",
+          "run",
+          "--output.json.path",
+          "stdout",
+          "--show-stats=false",
+          "--output.text.path=",
+        ],
+      },
+      "languages": {
+        "Go": {
+          "language_servers": ["gopls", "golangci-lint"],
+        },
+      },
+    },
+  },
 }
