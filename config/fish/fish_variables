@@ -2,12 +2,13 @@
 # VERSION: 3.0
 SETUVAR --export FZF_DEFAULT_OPTS:\x0a\x2d\x2dcolor\x3dbg\x2b\x3a\x23313244\x2cbg\x3a\x231e1e2e\x2cspinner\x3a\x23f5e0dc\x2chl\x3a\x23f38ba8\x20\x2d\x2dcolor\x3dfg\x3a\x23cdd6f4\x2cheader\x3a\x23f38ba8\x2cinfo\x3a\x23cba6f7\x2cpointer\x3a\x23f5e0dc\x20\x2d\x2dcolor\x3dmarker\x3a\x23f5e0dc\x2cfg\x2b\x3a\x23cdd6f4\x2cprompt\x3a\x23cba6f7\x2chl\x2b\x3a\x23f38ba8
 SETUVAR __fish_initialized:4300
+SETUVAR __fish_webconfig_theme_notification:set\x2dtheme\x2dv1\x2d\x233
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
 SETUVAR _fisher_patrickf1_2F_fzf_2E_fish_files:\x7e/\x2econfig/fish/functions/_fzf_configure_bindings_help\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_extract_var_info\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_preview_changed_file\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_preview_file\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_report_diff_type\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_report_file_type\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_search_directory\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_search_git_log\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_search_git_status\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_search_history\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_search_processes\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_search_variables\x2efish\x1e\x7e/\x2econfig/fish/functions/_fzf_wrapper\x2efish\x1e\x7e/\x2econfig/fish/functions/fzf_configure_bindings\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/fzf\x2efish\x1e\x7e/\x2econfig/fish/completions/fzf_configure_bindings\x2efish
 SETUVAR _fisher_plugins:jorgebucaran/fisher\x1epatrickf1/fzf\x2efish
 SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR --export fifc_custom_fzf_opts:\x2d\x2dbind\x3dctrl\x2di\x3adown\x2cbtab\x3aup\x2cctrl\x2dspace\x3atoggle
-SETUVAR fish_user_paths:/Users/nkapila6/\x2econfig/v\x2danalyzer/bin\x1e/Users/nkapila6/go/bin\x1e/Users/nkapila6/\x2elocal/bin\x1e/Users/nkapila6/\x2eemacs\x2ed/bin\x1e/usr/local/bin\x1e/Users/nkapila6/\x2elmstudio/bin\x1e/Users/nkapila6/Library/Application\x20Support/reflex/bun/bin\x1e/opt/homebrew/opt/node\x4022/bin\x1e/opt/homebrew/bin
+SETUVAR fish_user_paths:/opt/homebrew/opt/curl/bin\x1e/Users/nkapila6/\x2econfig/v\x2danalyzer/bin\x1e/Users/nkapila6/go/bin\x1e/Users/nkapila6/\x2elocal/bin\x1e/Users/nkapila6/\x2eemacs\x2ed/bin\x1e/usr/local/bin\x1e/Users/nkapila6/\x2elmstudio/bin\x1e/Users/nkapila6/Library/Application\x20Support/reflex/bun/bin\x1e/opt/homebrew/opt/node\x4022/bin\x1e/opt/homebrew/bin
 SETUVAR tide_color_frame_and_connection:\x23272822
 SETUVAR tide_color_separator_same_color:\x23272822
 SETUVAR tide_git_bg_color:\x2375715e

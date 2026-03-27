@@ -1,4 +1,3 @@
-fish_add_path /opt/homebrew/bin
 #pycharm
 # fish_add_path "/Applications/PyCharm.app/Contents/MacOS"
 fish_add_path "/opt/homebrew/opt/node@22/bin"
@@ -27,24 +26,23 @@ alias intel "env /usr/bin/arch -x86_64 /bin/zsh --login"
 alias ms "switchaudiosource -s 'MacBook Pro Speakers'"
 alias pas "switchaudiosource -s 'Proxy Audio Device'"
 alias lg lazygit
-# alias f fuck
+alias f fuck
 alias n nvim
-alias c cd
-alias an "NVIM_APPNAME=astrovim nvim"
-alias nn "NVIM_APPNAME=nvchad nvim"
+# alias an "NVIM_APPNAME=astrovim nvim"
+# alias nn "NVIM_APPNAME=nvchad nvim"
 alias ls lsd
 
-function nv
-    neovide $argv &
-end
+# function nv
+#     neovide $argv &
+# end
 
-function anv
-    env NVIM_APPNAME=astrovim neovide --frame buttonless $argv &
-end
+# function anv
+#     env NVIM_APPNAME=astrovim neovide --frame buttonless $argv &
+# end
 
-function nnv
-    env NVIM_APPNAME=nvchad neovide --frame buttonless $argv &
-end
+# function nnv
+#     env NVIM_APPNAME=nvchad neovide --frame buttonless $argv &
+# end
 
 # thefuck
 function fuck -d "Correct your previous console command"
@@ -62,7 +60,7 @@ alias saar fuck
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 
-set theme_color_scheme gruvbox
+# set theme_color_scheme gruvbox
 set -g fish_prompt_pwd_dir_length 0
 set -g theme_powerline_fonts
 set -g theme_nerd_fonts yes
@@ -79,3 +77,11 @@ starship init fish | source
 
 # Generated for envman. Do not edit.
 test -s ~/.config/envman/load.fish; and source ~/.config/envman/load.fish
+
+# Homebrew curl setup for C development
+set -gx LDFLAGS -L/opt/homebrew/opt/curl/lib
+set -gx CPPFLAGS -I/opt/homebrew/opt/curl/include
+set -gx PKG_CONFIG_PATH /opt/homebrew/opt/curl/lib/pkgconfig
+
+# Ensure the binary is preferred over system curl
+fish_add_path /opt/homebrew/opt/curl/bin
