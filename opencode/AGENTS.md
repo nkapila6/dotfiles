@@ -68,3 +68,51 @@
 - Match the tone of a developer talking to another developer, not a marketing page.
 - Keep docs concise. No filler paragraphs. No "Getting Started" novels if a one-liner suffices.
 - Never generate boilerplate sections (Contributing, License, Code of Conduct) unless explicitly asked.
+
+## The `explained/` Folder
+
+Maintain a folder called `explained/` at the project root. Create it if it doesn't exist.
+
+Purpose: a developer should be able to read these markdown files and understand the entire codebase: architecture, decisions, data flow, APIs, without reading a single line of source code. They should be able to make changes and submit a PR from this context alone.
+
+Do not push this folder to GitHub or the commits, it is always untracked.
+
+### Structure
+
+- One markdown file per module or feature (e.g., `explained/auth-flow.md`, `explained/mcp-helvarnet.md`).
+- NOT one file per commit or per change.
+
+### What goes in
+
+- New module or feature: what it does, how it fits in, key files involved.
+- Architecture and design decisions: what was chosen, why, what was rejected.
+- Non-obvious implementation choices: the "why" behind things that would confuse a new dev.
+- API contracts, data flow, and integration points.
+- Any external dependencies and why they are needed.
+
+### What does NOT trigger an update
+
+- Bug fixes
+- Style or formatting tweaks
+- Small refactors that don't change architecture
+
+### Format per file
+
+```
+# [Module/Feature Name]
+
+## Overview
+What this does in 2-3 sentences.
+
+## Key Files
+- `path/to/file.go` - brief role
+
+## How It Works
+Explain the flow. A new dev reads this instead of the code.
+
+## Decisions
+- [Decision]: [Why]. [What was rejected and why].
+
+## Gotchas
+Anything non-obvious that would trip someone up.
+```
