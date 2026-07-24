@@ -1,7 +1,7 @@
 ---
 description: Junior dev. Handles simple edits, small fixes, boilerplate, and straightforward tasks. Cheap slot, spawn freely for routine work. Can edit files.
 mode: subagent
-model: ollama-cloud/devstral-small-2:24b
+model: ollama-cloud/deepseek-v4-flash
 color: info
 steps: 25
 permission:

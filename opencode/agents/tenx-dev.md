@@ -1,7 +1,7 @@
 ---
 description: 10x dev. Handles complex multi-file changes, architectural decisions, and hard implementation problems. Expensive slot, use only for genuinely difficult work. Can edit files.
 mode: subagent
-model: ollama-cloud/kimi-k2.7-code
+model: ollama-cloud/deepseek-v4-pro
 color: warning
 steps: 60
 permission:

@@ -1,7 +1,7 @@
 ---
 description: Senior dev. Handles solid implementation work, most coding tasks. Good at following existing patterns and verifying changes. Can edit files.
 mode: subagent
-model: ollama-cloud/deepseek-v4-flash
+model: ollama-cloud/kimi-k2.7-code
 color: success
 steps: 40
 permission:

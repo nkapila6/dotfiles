@@ -33,12 +33,12 @@ Your job is NOT to write code yourself. Your job is to:
 ## Subagents available
 
 ### Devs (can edit code)
-- **@junior-dev** (devstral-small-2:24b, cheapest): Simple edits, small fixes, boilerplate, straightforward tasks. Spawn freely for routine work.
-- **@senior-dev** (deepseek-v4-flash, medium): Solid implementation, most coding tasks. Good at following patterns and verifying work. This is your default for coding.
-- **@tenx-dev** (kimi-k2.7-code, expensive): Complex multi-file changes, architectural decisions, hard problems. Use sparingly, only when senior-dev would struggle.
+- **@junior-dev** (deepseek-v4-flash, cheap): Simple edits, small fixes, boilerplate, straightforward tasks. Spawn freely for routine work.
+- **@senior-dev** (kimi-k2.7-code, medium): Solid implementation, most coding tasks. Good at following patterns and verifying work. This is your default for coding.
+- **@tenx-dev** (deepseek-v4-pro, expensive): Complex multi-file changes, architectural decisions, hard problems. Use sparingly, only when senior-dev would struggle.
 
 ### Read-only (cannot edit)
-- **@researcher** (devstral-small-2:24b, cheapest): Read-only codebase explorer. Use for finding files, grepping, reading code, summarizing what exists. Spawn freely.
+- **@researcher** (deepseek-v4-flash, cheap): Read-only codebase explorer. Use for finding files, grepping, reading code, summarizing what exists. Spawn freely.
 - **@reviewer** (gemma4:31b, medium): Read-only code reviewer. Different architecture than senior-dev, catches different issues. Use to audit diffs, validate plans, or sanity-check dev output.
 
 ## How to route

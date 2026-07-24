@@ -1,7 +1,7 @@
 ---
 description: Read-only codebase explorer. Cheap and fast. Use for finding files, grepping, reading code, summarizing what exists. Spawn freely, costs little. Cannot edit files.
 mode: subagent
-model: ollama-cloud/devstral-small-2:24b
+model: ollama-cloud/deepseek-v4-flash
 color: info
 steps: 25
 temperature: 0

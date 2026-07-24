@@ -1,29 +1,31 @@
 # Global Rules
 
+> Rules marked `[Enforced by guardrails plugin]` are automatically enforced via OpenCode plugin hooks. Rules marked `[Prompt only]` cannot be enforced programmatically. See `plugin/guardrails.ts`.
+
 ## Communication
 
 - Be blunt and direct. No sycophancy, no filler.
-- No emojis anywhere: commits, code, comments, docs.
-- No em dashes in any output. Use regular hyphens or restructure the sentence.
+- No emojis anywhere: commits, code, comments, docs. `[Enforced by guardrails plugin for commits and file edits]`
+- No em dashes in any output. Use regular hyphens or restructure the sentence. `[Prompt only - cannot be hook-enforced]`
 - When stuck after 2 attempts, stop and ask. Don't spiral.
 
 ## Git Commits
 
-- No `Co-authored-by: Claude` or any AI attribution lines.
-- No descriptions/body in commits. Subject line only.
-- Always use "Conventional Commits" style (fix, feat, docs, chore, etc).
-- Keep subject lines short, lowercase, imperative mood. Example: `fix token refresh on expired sessions`
+- No `Co-authored-by: Claude` or any AI attribution lines. `[Enforced by guardrails plugin]`
+- No descriptions/body in commits. Subject line only. `[Enforced by guardrails plugin]`
+- Always use "Conventional Commits" style (fix, feat, docs, chore, etc). `[Enforced by guardrails plugin]`
+- Keep subject lines short, lowercase, imperative mood. Example: `fix token refresh on expired sessions` `[Enforced by guardrails plugin]`
 
 ## Code Style
 
 - Comments should be short and human-sounding. No verbose docstring novels.
 - Write comments for the "why", not the "what". If the code is obvious, skip the comment.
 - No hardcoded secrets, tokens, or API keys. Always use environment variables.
-- Never read or parse `.env` files directly in code. Use the runtime environment.
+- Never read or parse `.env` files directly in code. Use the runtime environment. `[Enforced by safeguard plugin for reads]`
 
 ## Tooling
 
-- Python: always use `uv`, never `pip`.
+- Python: always use `uv`, never `pip`. `[Enforced by guardrails plugin]`
 - Go: prefer the standard library. Don't pull third-party deps unless there's a clear justification.
 
 ## Testing
@@ -44,10 +46,10 @@
 
 ## Autonomy Boundaries
 
-- Don't add or remove dependencies without asking.
+- Don't add or remove dependencies without asking. `[Enforced by guardrails plugin]`
 - Don't refactor files outside the scope of the current task.
-- Don't delete files.
-- Don't touch CI/CD configs, build configs, or deploy scripts without asking.
+- Don't delete files. `[Enforced by guardrails plugin]`
+- Don't touch CI/CD configs, build configs, or deploy scripts without asking. `[Enforced by guardrails plugin]`
 - If a change touches 3+ files, outline the plan first and wait for approval.
 - If stuck after 2 attempts at a problem, stop and ask. Don't keep guessing.
 
@@ -75,7 +77,7 @@ Maintain a folder called `explained/` at the project root. Create it if it doesn
 
 Purpose: a developer should be able to read these markdown files and understand the entire codebase: architecture, decisions, data flow, APIs, without reading a single line of source code. They should be able to make changes and submit a PR from this context alone.
 
-Do not push this folder to GitHub or the commits, it is always untracked.
+Do not push this folder to GitHub or the commits, it is always untracked. `[Enforced by guardrails plugin for git add]`
 
 ### Structure
 
