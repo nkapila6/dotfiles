@@ -48,47 +48,25 @@ clipboard-read = allow
 clipboard-write = allow
 copy-on-select = true
 window-subtitle = working-directory
-background-opacity = 0.9
-background = #2d2a2e
-foreground = #fcfcfa
-selection-background = #5b595c
-selection-foreground = #fcfcfa
-cursor-color = #c1c0c0
-cursor-text = #c1c0c0
-font-family = "JetBrainsMono Nerd Font"
-font-size = 15
+# background
+background-opacity = 1.00
+# background = #2d2a2e
+# foreground = #fcfcfa
+# selection-background = #5b595c
+# selection-foreground = #fcfcfa
+# cursor-color = #c1c0c0
+# cursor-text = #c1c0c0
+# font-family = "JetBrainsMono Nerd Font"
+font-family = "Iosevka Term"
+font-size = 16
 font-thicken = true
 mouse-shift-capture = true
 
 # quick terminal
-keybind = global:cmd+\=toggle_quick_terminal
+keybind = global:cmd+]=toggle_quick_terminal
 quick-terminal-screen = macos-menu-bar
 quick-terminal-position = center
 
 # theme
-theme="Monokai Classic"
-# palette = 0=#272822
-# palette = 1=#f92672
-# palette = 2=#a6e22e
-# palette = 3=#e6db74
-# palette = 4=#fd971f
-# palette = 5=#ae81ff
-# palette = 6=#66d9ef
-# palette = 7=#fdfff1
-# palette = 8=#6e7066
-# palette = 9=#f92672
-# palette = 10=#a6e22e
-# palette = 11=#e6db74
-# palette = 12=#fd971f
-# palette = 13=#ae81ff
-# palette = 14=#66d9ef
-# palette = 15=#fdfff1
-# background = #272822
-# foreground = #fdfff1
-# cursor-color = #c0c1b5
-# cursor-text = #c0c1b5
-# selection-background = #57584f
-# selection-foreground = #fdfff1
-#
-# move across words, opt+left/right
+theme=Rose Pine Moon
 

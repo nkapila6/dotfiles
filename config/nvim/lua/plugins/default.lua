@@ -73,7 +73,7 @@ return {
     opts = {
       variant = "moon",
       styles = {
-        transparency = true,
+        transparency = false,
         italic = false,
       },
     },

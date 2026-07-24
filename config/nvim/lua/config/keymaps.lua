@@ -1,12 +1,12 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
---- Search notes by filename
+-- Add any additional keymaps here
 
---- obsidian
-vim.keymap.set("n", "<leader>on", "<cmd>ObsidianQuickSwitch<cr>", { desc = "Search Obsidian Notes" })
+-- restart
+vim.keymap.set("n", "<leader>re", "<cmd>restart<cr>", { desc = "Restart nvim (:restart)" })
 
--- Search text inside notes
-vim.keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Search Inside Obsidian" })
+-- terminal as buffer
+vim.keymap.set("n", "<leader>tb", "<cmd>terminal<cr>", { desc = "Terminal (buffer)" })
 
--- Jump to your "Today" note
-vim.keymap.set("n", "<leader>ot", "<cmd>ObsidianToday<cr>", { desc = "Obsidian Today" })
+-- esc terminal buffer
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
