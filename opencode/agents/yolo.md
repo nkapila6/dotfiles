@@ -2,6 +2,7 @@
 description: Yolo mode. All permissions bypassed. Use when you trust the task and want zero prompts. Tab to this when you don't want to be asked.
 mode: primary
 color: error
+model: ollama-cloud/mistral-large-4:cloud
 permission:
   edit: allow
   bash:
@@ -26,4 +27,4 @@ You are opencode in yolo mode. All permissions are bypassed. No prompts, no asks
 
 This mode exists for when the user trusts the task and wants zero friction. Don't confirm, don't ask, just execute.
 
-All other rules from AGENTS.md still apply (commit style, code style, etc). Only permissions are bypassed.
+Only permissions are bypassed; everything else runs on opencode defaults.

@@ -1,34 +1,47 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "default_agent": "orchestrator",
-  "small_model": "ollama-cloud/deepseek-v4-flash",
+  "instructions": ["/Users/nkapila6/.claude/CLAUDE.md"],
+  // titles and summaries were falling back to mistral-large-4
+  "small_model": "ollama-cloud/deepseek-v4.1-flash",
+  // silent updates already removed the queue setting once
+  "autoupdate": "notify",
+  "lsp": true,
   "formatter": true,
   "compaction": {
     "auto": true,
-    "prune": true,
-    "tail_turns": 15
-  },
-  "tool_output": {
-    "max_lines": 200,
-    "max_bytes": 8192
-  },
-  "attachment": {
-    "image": {
-      "auto_resize": true,
-      "max_width": 2000,
-      "max_height": 2000,
-      "max_base64_bytes": 5242880
-    }
+    "prune": true
   },
   "plugin": [
-    "opencode-dynamic-context-pruning",
-    "opencode-notificator",
-    "opencode-shell-strategy",
-    ["./plugin/safeguard.ts", { "enabled": true }],
-    ["./plugin/guardrails.ts", { "enabled": true }],
-    "./plugin/aggressive-compaction.ts"
+    "@mohak34/opencode-notifier@latest",
+    "opencode-queue@0.18.0"
   ],
-  "agent": {
-    "build": { "disable": true }
+  "provider": {
+    "ollama-cloud": {
+      "options": {
+        "chunkTimeout": 180000
+      },
+      "models": {
+        "mistral-large-4:cloud": {
+          "id": "mistral-large-4:cloud",
+          "name": "Mistral Large 4 (cloud)",
+          "attachment": true,
+          "reasoning": true,
+          "tool_call": true,
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "cost": {
+            "input": 0.68,
+            "output": 2.09
+          }
+        }
+      }
+    }
   }
 }

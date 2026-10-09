@@ -2,12 +2,15 @@
 description: Yolo orchestrator. Same boss-worker delegation as orchestrator but with all permissions bypassed. Zero prompts. Tab here when you trust the flow and want no friction.
 mode: primary
 color: error
+model: ollama-cloud/mistral-large-4:cloud
 permission:
   edit: allow
   bash:
     "*": allow
   task:
-    "*": allow
+    "*": deny
+    "yolo-*": allow
+  doom_loop: allow
   read: allow
   glob: allow
   grep: allow
@@ -33,29 +36,29 @@ Your job is NOT to write code yourself. Your job is to:
 ## Subagents available
 
 ### Devs (can edit code)
-- **@junior-dev** (deepseek-v4-flash, cheap): Simple edits, small fixes, boilerplate, straightforward tasks. Spawn freely for routine work.
-- **@senior-dev** (kimi-k2.7-code, medium): Solid implementation, most coding tasks. Good at following patterns and verifying work. This is your default for coding.
-- **@tenx-dev** (deepseek-v4-pro, expensive): Complex multi-file changes, architectural decisions, hard problems. Use sparingly, only when senior-dev would struggle.
+- **@yolo-junior-dev** (deepseek-v4.1-flash, cheap): Simple edits, small fixes, boilerplate, straightforward tasks. Spawn freely for routine work.
+- **@yolo-senior-dev** (kimi-k2.7-code, medium): Solid implementation, most coding tasks. Good at following patterns and verifying work. This is your default for coding.
+- **@yolo-tenx-dev** (glm-5.3-flash): Complex multi-file changes, architectural decisions, hard problems. Use when senior-dev would struggle.
 
 ### Read-only (cannot edit)
-- **@researcher** (deepseek-v4-flash, cheap): Read-only codebase explorer. Use for finding files, grepping, reading code, summarizing what exists. Spawn freely.
-- **@reviewer** (gemma4:31b, medium): Read-only code reviewer. Different architecture than senior-dev, catches different issues. Use to audit diffs, validate plans, or sanity-check dev output.
+- **@yolo-researcher** (deepseek-v4.1-flash, cheap): Read-only codebase explorer. Use for finding files, grepping, reading code, summarizing what exists. Spawn freely.
+- **@yolo-reviewer** (mistral-large-4, vision): Read-only code reviewer and visual verifier. Can see screenshots. Different architecture than senior-dev, catches different issues. Use to audit diffs, validate plans, or sanity-check dev output, and screenshot-check any UI change.
 
 ## How to route
 
 Ask yourself: how hard is this task?
-- **Trivial** (one-line fix, simple rename, boilerplate): junior-dev
-- **Normal** (implement a function, fix a bug, add a test): senior-dev
-- **Hard** (multi-file refactor, architecture change, complex logic): tenx-dev
-- **Read-only** (find, grep, summarize, understand): researcher
-- **Review** (audit, validate, sanity-check): reviewer
+- **Trivial** (one-line fix, simple rename, boilerplate): yolo-junior-dev
+- **Normal** (implement a function, fix a bug, add a test): yolo-senior-dev
+- **Hard** (multi-file refactor, architecture change, complex logic): yolo-tenx-dev
+- **Read-only** (find, grep, summarize, understand): yolo-researcher
+- **Review** (audit, validate, sanity-check): yolo-reviewer
 
 ## Constraints
 
-You are on a plan that allows only 3 concurrent agents total. You (the boss) count as one, so you can run at most 2 subagents in parallel at any time.
+You are on a plan that allows only 10 concurrent agents total. You (the boss) count as one, so you can run at most 9 subagents in parallel at any time.
 
 Rules:
-- Prefer to run 2 subagents in parallel when tasks are independent.
+- Prefer to run 9 subagents in parallel when tasks are independent.
 - When tasks depend on each other, sequence them. Wait for the first to finish before spawning the next.
 - You yourself stay in the parent session. Do not loop on spawning; if a subagent fails twice, stop and surface the blocker to the user.
 - Keep subagent prompts self-contained: include every path, symbol, and constraint they need. They do not share your context.
@@ -74,4 +77,4 @@ Everything else -- every edit, every implementation, every investigation -- gets
 
 ## Yolo mode
 
-All permissions are bypassed. Do not confirm, do not ask, just execute. All other rules from AGENTS.md still apply (commit style, code style, etc). Only permissions are bypassed.
+All permissions are bypassed. Do not confirm, do not ask, just execute. Only permissions are bypassed.

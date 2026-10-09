@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Keeps real copies of skills in sync. ~/.claude/skills is the source of truth (Claude Code),
+# ~/.agents/skills is the copy opencode and omp read. Edit skills in ~/.claude/skills.
+set -euo pipefail
+
+SRC="$HOME/.claude/skills"
+DST="$HOME/.agents/skills"
+TB_UPSTREAM="$HOME/.local/share/terminal-browser/app/skills/default/terminal-browser"
+
+mkdir -p "$SRC" "$DST"
+
+# terminal-browser ships its own skill; refresh our copy from the app so upgrades land
+if [ -d "$TB_UPSTREAM" ]; then
+  [ -L "$SRC/terminal-browser" ] && rm "$SRC/terminal-browser"
+  mkdir -p "$SRC/terminal-browser"
+  rsync -a --delete "$TB_UPSTREAM/" "$SRC/terminal-browser/"
+fi
+
+# mirror every source skill into the copy, replacing any symlinks
+count=0
+for d in "$SRC"/*/; do
+  n=$(basename "$d")
+  [ -L "$DST/$n" ] && rm "$DST/$n"
+  mkdir -p "$DST/$n"
+  rsync -a --delete --delete-excluded --exclude .git "$d" "$DST/$n/"
+  count=$((count + 1))
+done
+echo "synced $count skills to $DST"
+
+# skills only in the copy (removed from the source, or installed straight into ~/.agents by
+# `npx skills add` / `hyperframes add`) are never touched; move them into the source by hand to keep them
+for d in "$DST"/*/; do
+  n=$(basename "$d")
+  [ -e "$SRC/$n" ] || echo "only in $DST (not synced): $n"
+done

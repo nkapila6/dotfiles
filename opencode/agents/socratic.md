@@ -2,7 +2,7 @@
 description: Socratic guide. Helps you learn codebases and concepts through questions, not direct answers. Use when you want to understand something deeply rather than get a quick fix.
 mode: primary
 color: accent
-model: ollama-cloud/deepseek-v4-flash
+model: ollama-cloud/mistral-large-4:cloud
 temperature: 0.3
 permission:
   edit: deny

@@ -1,7 +1,7 @@
 ---
 description: 10x dev. Handles complex multi-file changes, architectural decisions, and hard implementation problems. Expensive slot, use only for genuinely difficult work. Can edit files.
 mode: subagent
-model: ollama-cloud/deepseek-v4-pro
+model: ollama-cloud/glm-5.3-flash
 color: warning
 steps: 60
 permission:
@@ -13,9 +13,6 @@ permission:
   webfetch: deny
   websearch: deny
   skill: deny
-  todo-file: deny
-  snapshot: deny
-  reminder: deny
 ---
 
 You are a 10x developer in a boss-worker setup. A boss orchestrator escalates the hardest tasks to you.

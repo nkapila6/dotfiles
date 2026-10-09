@@ -1,0 +1,94 @@
+modelRoles:
+  default: ollama-cloud/deepseek-v4-pro
+  slow: ollama-cloud/glm-5.3
+  plan: ollama-cloud/glm-5.3
+  task: ollama-cloud/kimi-k2.7-code
+  smol: ollama-cloud/deepseek-v4.1-flash
+  tiny: ollama-cloud/deepseek-v4.1-flash
+  commit: ollama-cloud/deepseek-v4.1-flash
+  vision: ollama-cloud/mistral-large-4
+  advisor: ollama-cloud/glm-5.3-flash
+symbolPreset: nerd
+composer:
+  shape: claude
+  tokenRate: true
+theme:
+  dark: dark-monokai
+  light: light
+setupVersion: 2
+advisor:
+  enabled: true
+  reviewMode: agent-end
+skills:
+  enableClaudeUser: false
+memories:
+  enabled: true
+  stage1Concurrency: 2
+  maxRolloutsPerStartup: 16
+memory:
+  backend: local
+task:
+  enableLsp: true
+  isolation:
+    enabled: true
+lsp:
+  diagnosticsOnEdit: true
+  formatOnWrite: true
+retry:
+  fallbackChains:
+    default:
+      - ollama-cloud/glm-5.3
+      - ollama-cloud/kimi-k3
+    slow:
+      - ollama-cloud/kimi-k3
+    plan:
+      - ollama-cloud/kimi-k3
+    task:
+      - ollama-cloud/glm-5.3-flash
+      - ollama-cloud/deepseek-v4.1-flash
+    smol:
+      - ollama-cloud/glm-5.3-flash
+    vision:
+      - ollama-cloud/kimi-k3
+    advisor:
+      - ollama-cloud/deepseek-v4.1-flash
+providers:
+  tinyModelDevice: default
+  maxInFlightRequests:
+    ollama-cloud: 10
+  tinyModelDtype: default
+title:
+  generator: fork
+statusLine:
+  preset: full
+  separator: pipe
+  contextLine: embedded
+  sessionAccent: true
+  transparent: true
+terminal:
+  showProgress: true
+tui:
+  textSizing: true
+  vimMode: true
+  vimModeDisplay: text
+steeringMode: all
+stt:
+  enabled: true
+bash:
+  enabled: true
+readLineNumbers: true
+read:
+  renderMarkdown: true
+  toolResultPreview: true
+  summarize:
+    prose: true
+astGrep:
+  enabled: true
+speechgen:
+  enabled: true
+github:
+  enabled: true
+isolation:
+  backend: auto
+speech:
+  enabled: false

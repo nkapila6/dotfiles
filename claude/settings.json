@@ -1,13 +1,27 @@
 {
-  "statusLine": {
-    "type": "command",
-    "command": "/Users/nkapila6/.claude/statusline.sh"
-  },
+  "agentPushNotifEnabled": true,
   "enabledPlugins": {
     "skill-creator@claude-plugins-official": true
   },
-  "skipDangerousModePermissionPrompt": true,
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "'/Users/nkapila6/.local/bin/jcode' setup-hotkey --notify-cli-launch claude",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "startup|resume"
+      }
+    ]
+  },
   "inputNeededNotifEnabled": true,
-  "agentPushNotifEnabled": true,
+  "skipDangerousModePermissionPrompt": true,
+  "statusLine": {
+    "command": "/Users/nkapila6/.claude/statusline.sh",
+    "type": "command"
+  },
   "tui": "fullscreen"
 }

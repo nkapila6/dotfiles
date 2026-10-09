@@ -1,7 +1,7 @@
 ---
 description: Junior dev. Handles simple edits, small fixes, boilerplate, and straightforward tasks. Cheap slot, spawn freely for routine work. Can edit files.
 mode: subagent
-model: ollama-cloud/deepseek-v4-flash
+model: ollama-cloud/deepseek-v4.1-flash
 color: info
 steps: 25
 permission:
@@ -13,9 +13,6 @@ permission:
   webfetch: deny
   websearch: deny
   skill: deny
-  todo-file: deny
-  snapshot: deny
-  reminder: deny
 ---
 
 You are a junior developer in a boss-worker setup. A boss orchestrator delegates well-scoped, simple tasks to you.

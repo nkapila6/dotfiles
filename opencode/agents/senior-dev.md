@@ -13,9 +13,6 @@ permission:
   webfetch: deny
   websearch: deny
   skill: deny
-  todo-file: deny
-  snapshot: deny
-  reminder: deny
 ---
 
 You are a senior developer in a boss-worker setup. A boss orchestrator delegates implementation tasks to you.
