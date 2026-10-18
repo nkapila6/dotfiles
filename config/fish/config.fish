@@ -28,7 +28,23 @@ alias n nvim
 # alias nn "NVIM_APPNAME=nvchad nvim"
 alias ls lsd
 alias pd proton-drive
+# Vite+ node under explicit aliases (bare npm/node use Homebrew)
+alias npm+ "$HOME/.vite-plus/bin/npm"
+alias node+ "$HOME/.vite-plus/bin/node"
+alias npx+ "$HOME/.vite-plus/bin/npx"
 alias ob "cd /Users/nkapila6/Library/CloudStorage/OneDrive-Personal/Apps/Notes && nvim /Users/nkapila6/Library/CloudStorage/OneDrive-Personal/Apps/Notes"
+
+function ggl -a search
+    open "https://www.google.com/search?hl=en&q=$search"
+end
+
+function ddgs -a search
+    open "https://duckduckgo.com/?q=$search"
+end
+
+function yt -a search
+    open "https://www.youtube.com/results?search_query=$search"
+end
 
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
@@ -42,6 +58,9 @@ set -g theme_newline_cursor yes
 
 # uv
 fish_add_path "/Users/nkapila6/.local/bin"
+
+# global node modules (Homebrew) on the require path
+set -gx NODE_PATH /opt/homebrew/lib/node_modules
 
 # gpg
 export GPG_TTY=$(tty)
@@ -59,3 +78,20 @@ fish_add_path /opt/homebrew/opt/curl/bin
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx GPG_TTY (tty)
 set -gx ANDROID_NDK_HOME /opt/homebrew/share/android-ndk
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
+
+# Environment:
+#   TODO_DIR     directory holding todo.txt / done.txt
+#   TODO_FILE    path to the todo file (default $TODO_DIR/todo.txt)
+#   DONE_FILE    path to the archive file (default sibling done.txt)
+set --export TODO_DIR "~/.config/tuxedo/"
+set --export TODO_FILE "~/.config/tuxedo/todo.txt"
+set --export DONE_FILE "~/.config/tuxedo/done.txt"
+
+# wallust
+# if status is-interactive
+#     test -f "$HOME/Library/Caches/wallust/sequences" && cat "$HOME/Library/Caches/wallust/sequences"
+# end

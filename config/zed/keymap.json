@@ -268,7 +268,16 @@
   {
     "context": "(Workspace && !Terminal)",
     "bindings": {
-      "cmd-r": "task::Spawn"
-    }
-  }
+      "cmd-r": "task::Spawn",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "space w h": "workspace::ActivatePaneLeft",
+      "space w l": "workspace::ActivatePaneRight",
+      "space w k": "workspace::ActivatePaneUp",
+      "space w j": "workspace::ActivatePaneDown",
+    },
+  },
 ]

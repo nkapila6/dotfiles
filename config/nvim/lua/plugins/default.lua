@@ -7,8 +7,8 @@ return {
     flavour = "mocha",
     optional = true,
     opts = {
-      transparent_background = true,
-      transparent = true,
+      transparent_background = false,
+      transparent = false,
       no_italic = true,
       integrations = {
         aerial = true,
@@ -58,8 +58,8 @@ return {
     "folke/tokyonight.nvim",
     lazy = true,
     opts = {
-      transparent = true,
-      transparent_background = true,
+      transparent = false,
+      transparent_background = false,
       styles = {
         comments = { italic = false },
         keywords = { italic = false },

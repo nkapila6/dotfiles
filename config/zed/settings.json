@@ -7,20 +7,73 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "ui_font_family": "JetBrainsMono Nerd Font",
+  "language_models": {
+    "ollama": {
+      "api_url": "https://ollama.com"
+    }
+  },
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    }
+  },
+  "terminal": {
+    "font_family": "Iosevka Nerd Font Mono"
+  },
+  "lsp_document_colors": "inlay",
+  "inlay_hints": {
+    "show_background": true,
+    "enabled": true
+  },
+  "project_panel": {
+    "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "git_panel": {
+    "dock": "left"
+  },
+  "use_system_window_tabs": false,
+  "preview_tabs": {
+    "enable_keep_preview_on_code_navigation": true,
+    "enable_preview_multibuffer_from_code_navigation": true,
+    "enable_preview_from_file_finder": true
+  },
+  "tab_bar": {
+    "show_pinned_tabs_in_separate_row": true
+  },
+  "tabs": {
+    "file_icons": true,
+    "git_status": true
+  },
+  "title_bar": {
+    "show_branch_status_icon": true,
+    "show_menus": true
+  },
+  "status_bar": {
+    "show_active_file": true
+  },
+  "show_edit_predictions": false,
   "edit_predictions": {
+    "allow_data_collection": "no",
     "mode": "subtle",
   },
   "agent": {
+    "dock": "right",
     "show_turn_stats": true,
     "use_modifier_to_send": true,
-    "play_sound_when_agent_done": true,
+    "play_sound_when_agent_done": "always",
     "single_file_review": true,
-    "default_profile": "ask",
+    "default_profile": "write",
     "default_model": {
-      "effort": "medium",
-      "provider": "zed.dev",
-      "model": "gpt-5.4",
-      "enable_thinking": true,
+      "provider": "ollama",
+      "model": "qwen3-coder-next",
+      "enable_thinking": false,
     },
     "favorite_models": [],
     "model_parameters": [],
@@ -36,7 +89,7 @@
       "enabled": true,
     },
   },
-  "buffer_font_family": "Hack Nerd Font",
+  "buffer_font_family": "IosevkaFixedSS15 Nerd Font",
   "restore_on_startup": "launchpad",
   "telemetry": {
     "diagnostics": false,
@@ -54,12 +107,12 @@
   "vim": {},
   "relative_line_numbers": "enabled",
   "base_keymap": "VSCode",
-  "ui_font_size": 16,
-  "buffer_font_size": 15,
+  "ui_font_size": 15.0,
+  "buffer_font_size": 16.0,
   "theme": {
     "mode": "dark",
     "light": "Gruvbox Light",
-    "dark": "Zedokai (Filter Spectrum)",
+    "dark": "Gruvbox Dark",
   },
   "lsp": {
     // c, cpp, go,

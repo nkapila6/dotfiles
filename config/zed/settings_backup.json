@@ -7,7 +7,74 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "buffer_font_family": "Hack Nerd Font",
+  "inlay_hints": {
+    "show_background": true,
+    "enabled": true
+  },
+  "project_panel": {
+    "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "git_panel": {
+    "dock": "left"
+  },
+  "use_system_window_tabs": false,
+  "preview_tabs": {
+    "enable_keep_preview_on_code_navigation": true,
+    "enable_preview_multibuffer_from_code_navigation": true,
+    "enable_preview_from_file_finder": true
+  },
+  "tab_bar": {
+    "show_pinned_tabs_in_separate_row": true
+  },
+  "tabs": {
+    "file_icons": true,
+    "git_status": true
+  },
+  "title_bar": {
+    "show_menus": true,
+    "show_branch_icon": true
+  },
+  "status_bar": {
+    "show_active_file": true
+  },
+  "show_edit_predictions": false,
+  "edit_predictions": {
+    "mode": "subtle",
+  },
+  "agent": {
+    "dock": "right",
+    "show_turn_stats": true,
+    "use_modifier_to_send": true,
+    "play_sound_when_agent_done": true,
+    "single_file_review": true,
+    "default_profile": "ask",
+    "default_model": {
+      "effort": "high",
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4-6",
+      "enable_thinking": true,
+    },
+    "favorite_models": [],
+    "model_parameters": [],
+  },
+  "audio": {
+    "experimental.rodio_audio": false,
+  },
+  "calls": {
+    "mute_on_join": true,
+  },
+  "diagnostics": {
+    "inline": {
+      "enabled": true,
+    },
+  },
+  "buffer_font_family": "JetBrainsMono Nerd Font",
   "restore_on_startup": "launchpad",
   "telemetry": {
     "diagnostics": false,
@@ -16,19 +83,40 @@
   "icon_theme": {
     "mode": "dark",
     "light": "Zed (Default)",
-    "dark": "Zed (Default)",
+    "dark": "JetBrains New UI Icons (Dark)",
   },
   "session": {
     "trust_all_worktrees": true,
   },
   "vim_mode": true,
-  "relative_line_numbers": true,
+  "vim": {},
+  "relative_line_numbers": "enabled",
   "base_keymap": "VSCode",
   "ui_font_size": 16,
   "buffer_font_size": 15,
   "theme": {
     "mode": "dark",
     "light": "Gruvbox Light",
-    "dark": "Gruvbox Dark",
+    "dark": "Zedokai Classic",
+  },
+  "lsp": {
+    // c, cpp, go,
+    "golangci-lint": {
+      "initialization_options": {
+        "command": [
+          "golangci-lint",
+          "run",
+          "--output.json.path",
+          "stdout",
+          "--show-stats=false",
+          "--output.text.path=",
+        ],
+      },
+      "languages": {
+        "Go": {
+          "language_servers": ["gopls", "golangci-lint"],
+        },
+      },
+    },
   },
 }

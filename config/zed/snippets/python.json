@@ -1,0 +1,29 @@
+{
+  "Default function": {
+    "prefix": "def",
+    "description": "A simple function template",
+    "body": ["def ${1:...}(${2:...})-> ${3:None}:", "    $0"]
+  },
+  "Create name and main": {
+    "prefix": "main",
+    "description": "main func template",
+    "body": [
+      "def main()->None:",
+      "    ${1:...}",
+      "",
+      "",
+      "if __name__=='__main__':",
+      "    main()",
+      ""
+    ]
+  },
+  "Create a class": {
+    "prefix": "class",
+    "description": "class template",
+    "body": [
+      "class ${1:...}:",
+      "    def __init__(self, ${2:...})->${3:...}:",
+      "        ${4:...}"
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+return {}
+-- local function blend(a, b, t)
+--   local h = function(s)
+--     return tonumber(s:sub(2, 3), 16), tonumber(s:sub(4, 5), 16), tonumber(s:sub(6, 7), 16)
+--   end
+--   local ar, ag, ab = h(a)
+--   local br, bg_, bb = h(b)
+--   local m = function(x, y)
+--     return math.floor(x + (y - x) * t + 0.5)
+--   end
+--   return string.format("#%02x%02x%02x", m(ar, br), m(ag, bg_), m(ab, bb))
+-- end
+--
+-- local function darken(hex, n)
+--   local r = math.max(tonumber(hex:sub(2, 3), 16) - n, 0)
+--   local g = math.max(tonumber(hex:sub(4, 5), 16) - n, 0)
+--   local b = math.max(tonumber(hex:sub(6, 7), 16) - n, 0)
+--   return string.format("#%02x%02x%02x", r, g, b)
+-- end
+--
+-- return {
+--   "RedsXDD/neopywal.nvim",
+--   name = "neopywal",
+--   lazy = false,
+--   priority = 1000,
+--   opts = {
+--     use_palette = "pywal",
+--     -- lift editor bg slightly above the terminal bg so the editor is
+--     -- distinguishable from plain shell windows; still palette-derived
+--     custom_colors = function(C)
+--       local bg = blend(C.background, C.foreground, 0.07)
+--       return {
+--         all = {
+--           background = bg,
+--           dim_bg = darken(bg, 5),
+--           cursorline = blend(bg, C.foreground, 0.10),
+--         },
+--       }
+--     end,
+--   },
+--   config = function(_, opts)
+--     require("neopywal").setup(opts)
+--     vim.cmd.colorscheme("neopywal")
+--   end,
+-- }

@@ -53,3 +53,6 @@ end
 
 -- Create the Manual Command: :Header
 vim.api.nvim_create_user_command("Header", insert_header, { desc = "Insert custom file header" })
+
+-- vim.cmd.colorscheme("neopywal")
+-- vim.cmd.colorscheme("rosepine")
