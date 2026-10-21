@@ -1,0 +1,52 @@
+# tuios-nowplaying: written by its install.sh, which fills in @SCRIPT@.
+# Lives in config.d/ and sorts after look.toml, so it wins over a look's
+# dock.center. config.toml still wins over both.
+
+[dock]
+center = ["custom/np-prev", "custom/nowplaying", "custom/np-next"]
+
+[dock.custom.np-prev]
+command = "'/Users/nkapila6/.config/tuios/scripts/now-playing' prev # 3471213739"
+refresh = "push"
+on-click = "'/Users/nkapila6/.config/tuios/scripts/now-playing' back # 3471213739"
+
+[dock.custom.nowplaying]
+command = "'/Users/nkapila6/.config/tuios/scripts/now-playing' # 3471213739"
+refresh = "push"
+on-click = "'/Users/nkapila6/.config/tuios/scripts/now-playing' toggle # 3471213739"
+max-width = 48
+
+[dock.custom.np-next]
+command = "'/Users/nkapila6/.config/tuios/scripts/now-playing' next # 3471213739"
+refresh = "push"
+on-click = "'/Users/nkapila6/.config/tuios/scripts/now-playing' skip # 3471213739"
+
+# keys: ctrl+. ctrl+, ctrl+/ in window mode only, so panes keep them in terminal
+# mode. Each entry also needs a key of its own, so they get leader versions too:
+# ctrl+b alt+. / alt+, / alt+/ work from any mode and never take a key from a pane.
+# Override an entry by name in config.toml, or set disabled = true.
+[[keybindings.command]]
+name = "nowplaying-next"
+key = "prefix+alt+."
+type = "shell"
+command = "'/Users/nkapila6/.config/tuios/scripts/now-playing' skip # 3471213739"
+description = "Now playing: next track"
+
+[[keybindings.command]]
+name = "nowplaying-prev"
+key = "prefix+alt+,"
+type = "shell"
+command = "'/Users/nkapila6/.config/tuios/scripts/now-playing' back # 3471213739"
+description = "Now playing: previous track"
+
+[[keybindings.command]]
+name = "nowplaying-toggle"
+key = "prefix+alt+/"
+type = "shell"
+command = "'/Users/nkapila6/.config/tuios/scripts/now-playing' toggle # 3471213739"
+description = "Now playing: play/pause"
+
+[keybindings.window_management]
+"command:nowplaying-next" = ["ctrl+."]
+"command:nowplaying-prev" = ["ctrl+,"]
+"command:nowplaying-toggle" = ["ctrl+/"]

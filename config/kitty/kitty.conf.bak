@@ -1,26 +1,96 @@
 # includes
-include quick-access-terminal.conf
 globinclude kitty.d/**/*.conf
 
 # font
-font_family family="JetBrainsMono Nerd Font"
-bold_font        auto
-italic_font      auto
-bold_italic_font auto
+# font_family family="Rec Mono Casual"
+# font_family family="JetBrainsMono Nerd Font"
+# font_family JetBrainsMono NFM
+# font_family Maple Mono NF
+# font_family MonaspiceNe NFM
+# font_family MonaspiceAr NFM
+# font_family MonaspiceKr NFM
+# font_family MonaspiceRn NFM
+# font_family CommitMono Nerd Font Mono
+# font_family FiraCode Nerd Font Mono
+# font_family VictorMono NFM
+# font_family RecMonoCasual Nerd Font Mono
+# font_family IosevkaFixedSS15 Nerd Font
+# font_family MesloLGS Nerd Font Mono
+# font_family Hack Nerd Font Mono
+# font_family Iosevka Term
+# modify_font cell_width 110%
+macos_thicken_font 0.25
+# modify_font cell_height -2px
+# bold_font        auto
+# italic_font      auto
+# bold_italic_font auto
 
 # font size
-font_size 15.0
+font_size 16.0
 enable_audio_bell yes
 
 # notif
 hide_window_decorations yes
-windows_alert_on_bell yes
+# window_padding_width 25
+window_alert_on_bell yes
+draw_minimal_borders yes
+active_border_color none
+active_tab_font_style bold
+
+# remote-control
+allow_remote_control yes
+listen_on unix:/tmp/kitty
+background_image_layout scaled
+background_tint 0.98
+background_tint_gaps 0
 
 #copy on select
 copy_on_select clipboard
 
+# This setting explicitly allows programs (like Neovim) to send data to the host clipboard.
+# clipboard_control write-clipboard,write-primary
+clipboard_control write-clipboard write-primary read-clipboard read-primary
 
 # BEGIN_KITTY_THEME
-# Monokai Pro
-include current-theme.conf
+# ghostty defaults (rose pine + wallust parked for now)
+# include current-theme.conf
+# include kitty-colors.conf
+include ghostty-default.conf
 # END_KITTY_THEME
+
+# background
+# include bg.conf
+background_opacity 1.0
+#background_blur 20
+allow_hyperlinks yes
+editor nvim
+
+# tab bar
+tab_bar_edge bottom
+tab_bar_align left
+tab_bar_style custom
+tab_separator ""
+tab_bar_margin_width 0.0
+tab_bar_margin_height 0.0 0.0
+tab_title_template "{f'{title[:30]}…' if title.rindex(title[-1]) + 1 > 30 else (title.center(6) if (title.rindex(title[-1]) + 1) % 2 == 0 else title.center(5))}"
+tab_activity_symbol none
+tab_separator ""
+tab_bar_margin_width 0.0
+tab_bar_margin_height 0.0 0.0
+tab_title_template "{f'{title[:30]}…' if title.rindex(title[-1]) + 1 > 30 else (title.center(6) if (title.rindex(title[-1]) + 1) % 2 == 0 else title.center(5))}"
+active_tab_font_style   bold
+
+# left option sends alt, matches ghostty
+macos_option_as_alt left
+window_padding_width 0
+
+# shell
+# shell /opt/homebrew/bin/nu --login
+
+
+# BEGIN_KITTY_FONTS
+font_family      family="Iosevka Nerd Font Mono"
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+# END_KITTY_FONTS

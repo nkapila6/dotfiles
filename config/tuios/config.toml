@@ -122,3 +122,31 @@ daemon = true
 
 [debug]
 show_key_events = true
+
+[screensaver]
+enabled = true
+effect = "thunderstorm"
+idle_minutes = 5
+
+# use the terminal's own colours (kitty's monokai) instead of the look's theme.
+# keeps the look's layout (dock, rail, pill titles); config.toml wins over look.toml
+[appearance]
+theme = "none"
+background = "off"
+desktop_background = "off"
+dock_background = "off"
+border_focused_gradient = "green bright_cyan"
+# hex, not bright_black: kitty's color8 is remapped to #8a8a8a, too close to the focused border
+border_unfocused_color = "#3a3a3a"
+border_style = "thick"
+dim_unfocused = 25
+# no gap, but each pane keeps its own border; shared borders blurred focus
+gap = 0
+shared_borders = false
+dock_compact = true
+hide_window_buttons = true
+
+[appearance.sidebar]
+background = "off"
+density = "normal"
+width = 22

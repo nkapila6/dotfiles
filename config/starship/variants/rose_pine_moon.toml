@@ -1,0 +1,361 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# variant: rose_pine_moon. managed by `spv` in fish config.fish
+add_newline = true
+palette = 'rose_pine_moon'
+
+# line 1: who/where/git. right side lives in fish's right prompt so it
+# never overflows; fish hides it when the line gets too long
+format = """
+$os$username$hostname\
+$directory\
+$git_branch$git_status$git_state$git_metrics\
+$line_break\
+$character"""
+
+right_format = """
+$python$golang$rust$nodejs$bun$c\
+${custom.tuios_agents}${custom.tuios}${custom.tuios_here}\
+$docker_context$jobs$cmd_duration$status$time"""
+
+[os]
+disabled = false
+style = "fg:ink bg:user"
+format = '[](fg:user)[$symbol ]($style)'
+
+[os.symbols]
+Macos = "󰀵"
+Linux = "󰌽"
+
+[username]
+show_always = true
+style_user = "fg:ink bg:user bold"
+style_root = "fg:ink bg:user bold"
+format = '[$user]($style)[ ](fg:user)'
+
+# only shows over ssh, needs starship + this file on the server
+[hostname]
+ssh_only = true
+ssh_symbol = " "
+format = '[](fg:err)[$ssh_symbol$hostname](fg:ink bg:err)[](fg:err) '
+
+# full path, no truncation
+[directory]
+truncation_length = 100
+truncate_to_repo = false
+read_only = " 󰌾"
+format = '[](fg:path)[$path$read_only](fg:ink bg:path)[](fg:path) '
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+".config" = " "
+
+[git_branch]
+symbol = ""
+format = '[](fg:git)[$symbol $branch](fg:ink bg:git)'
+
+[git_status]
+format = '([ $all_status$ahead_behind](fg:ink bg:git))[ ](fg:git)'
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇡${ahead_count}⇣${behind_count}"
+up_to_date = ""
+stashed = " ${count}"
+modified = " ${count}"
+staged = " ${count}"
+untracked = " ?${count}"
+deleted = " ${count}"
+renamed = " ${count}"
+conflicted = " ${count}"
+
+[git_state]
+format = '[](fg:err)[$state( $progress_current/$progress_total)](fg:ink bg:err)[](fg:err) '
+
+[git_metrics]
+disabled = false
+added_style = "fg:user bg:surface"
+deleted_style = "fg:err bg:surface"
+format = '([](fg:surface)([+$added]($added_style))([ -$deleted]($deleted_style))[](fg:surface))'
+
+[python]
+symbol = ""
+format = '[](fg:lang)[$symbol( $version)( (#$virtualenv))](fg:ink bg:lang)[](fg:lang) '
+
+[golang]
+symbol = ""
+format = '[](fg:lang)[$symbol( $version)](fg:ink bg:lang)[](fg:lang) '
+
+[rust]
+symbol = ""
+format = '[](fg:lang)[$symbol( $version)](fg:ink bg:lang)[](fg:lang) '
+
+[nodejs]
+symbol = ""
+format = '[](fg:lang)[$symbol( $version)](fg:ink bg:lang)[](fg:lang) '
+
+[bun]
+symbol = ""
+format = '[](fg:lang)[$symbol( $version)](fg:ink bg:lang)[](fg:lang) '
+
+[c]
+symbol = ""
+format = '[](fg:lang)[$symbol( $version)](fg:ink bg:lang)[](fg:lang) '
+
+# live tuios sessions, hidden when the daemon is down or empty
+[custom.tuios]
+command = 'tuios ls --json 2>/dev/null | jq -r "[.[] | select(.saved | not)] | if length > 0 then (length | tostring) + (if any(.attached) then \"\" else \" detached\" end) else empty end"'
+when = 'test -z "$TUIOS_PANE_ID$TUIOS_SESSION"'
+shell = ["sh"]
+symbol = "tuios"
+format = '([](fg:tuios)[$symbol $output](fg:ink bg:tuios)[](fg:tuios) )'
+
+# inside tuios: which session/workspace this pane is in
+[custom.tuios_here]
+command = 'tuios session-info -s "$TUIOS_SESSION" --json 2>/dev/null | jq -r --arg s "$TUIOS_SESSION" "\$s + \" \" + (.current_workspace|tostring) + \"/\" + (.num_workspaces|tostring)"'
+when = 'test -n "$TUIOS_SESSION"'
+shell = ["sh"]
+symbol = "tuios"
+format = '([](fg:tuios)[$symbol $output](fg:ink bg:tuios)[](fg:tuios) )'
+
+# any shell: agents across all sessions that need you, finished unseen, or left you a message.
+# prints nothing (so no pill) when everything is quiet
+[custom.tuios_agents]
+command = 'tuios list-agents --json --all-sessions 2>/dev/null | jq -r "(.agents // []) as \$a | [([\$a[] | select(.needs_you)] | length | select(. > 0) | \"\(.) waiting\"), ([\$a[] | select(.finished_unread)] | length | select(. > 0) | \"\(.) done\"), ((.human_unread // 0) | select(. > 0) | \"\(.) msg\")] | if length > 0 then join(\" \") else empty end"'
+when = true
+shell = ["sh"]
+symbol = "󰚩"
+format = '([](fg:err)[$symbol $output](fg:ink bg:err)[](fg:err) )'
+
+[docker_context]
+symbol = ""
+format = '[](fg:lang)[$symbol $context](fg:ink bg:lang)[](fg:lang) '
+
+[jobs]
+symbol = ""
+format = '[](fg:surface)[$symbol $number](fg:text bg:surface)[](fg:surface) '
+
+# only shows for slow commands; kitty handles finish notifications
+[cmd_duration]
+min_time = 2000
+format = '[](fg:surface)[󰥔 $duration](fg:text bg:surface)[](fg:surface) '
+show_notifications = false
+
+[status]
+disabled = false
+symbol = ""
+format = '[](fg:err)[$symbol $status](fg:ink bg:err)[](fg:err) '
+
+[time]
+disabled = false
+time_format = "%R"
+format = '[](fg:surface)[ $time](fg:text bg:surface)[](fg:surface)'
+
+[line_break]
+disabled = false
+
+[character]
+success_symbol = '[❯](bold fg:user)'
+error_symbol = '[❯](bold fg:err)'
+vimcmd_symbol = '[❮](bold fg:user)'
+vimcmd_replace_one_symbol = '[❮](bold fg:tuios)'
+vimcmd_replace_symbol = '[❮](bold fg:tuios)'
+vimcmd_visual_symbol = '[❮](bold fg:git)'
+
+[palettes.catppuccin]
+user = "#a6e3a1"
+path = "#fab387"
+git = "#f9e2af"
+lang = "#89dceb"
+tuios = "#cba6f7"
+err = "#f38ba8"
+surface = "#313244"
+ink = "#11111b"
+text = "#cdd6f4"
+
+[palettes.rose_pine_moon]
+user = "#9ccfd8"
+path = "#ea9a97"
+git = "#f6c177"
+lang = "#3e8fb0"
+tuios = "#c4a7e7"
+err = "#eb6f92"
+surface = "#393552"
+ink = "#232136"
+text = "#e0def4"
+
+[palettes.nord]
+user = "#8fbcbb"
+path = "#88c0d0"
+git = "#ebcb8b"
+lang = "#81a1c1"
+tuios = "#b48ead"
+err = "#bf616a"
+surface = "#434c5e"
+ink = "#2e3440"
+text = "#eceff4"
+
+[palettes.tokyo_night]
+user = "#a3aed2"
+path = "#7aa2f7"
+git = "#7dcfff"
+lang = "#2ac3de"
+tuios = "#bb9af7"
+err = "#f7768e"
+surface = "#394260"
+ink = "#1a1b26"
+text = "#c0caf5"
+
+[palettes.kanagawa]
+user = "#98bb6c"
+path = "#ffa066"
+git = "#e6c384"
+lang = "#7fb4ca"
+tuios = "#957fb8"
+err = "#e46876"
+surface = "#363646"
+ink = "#1f1f28"
+text = "#dcd7ba"
+
+[palettes.everforest]
+user = "#a7c080"
+path = "#dbbc7f"
+git = "#e69875"
+lang = "#83c092"
+tuios = "#d699b6"
+err = "#e67e80"
+surface = "#3d484d"
+ink = "#2d353b"
+text = "#d3c6aa"
+
+[palettes.gruvbox_material]
+user = "#a9b665"
+path = "#d8a657"
+git = "#e78a4e"
+lang = "#7daea3"
+tuios = "#d3869b"
+err = "#ea6962"
+surface = "#3c3836"
+ink = "#282828"
+text = "#d4be98"
+
+[palettes.dracula]
+user = "#50fa7b"
+path = "#ffb86c"
+git = "#f1fa8c"
+lang = "#8be9fd"
+tuios = "#bd93f9"
+err = "#ff5555"
+surface = "#44475a"
+ink = "#282a36"
+text = "#f8f8f2"
+
+[palettes.onedark]
+user = "#98c379"
+path = "#d19a66"
+git = "#e5c07b"
+lang = "#61afef"
+tuios = "#c678dd"
+err = "#e06c75"
+surface = "#3e4451"
+ink = "#282c34"
+text = "#abb2bf"
+
+[palettes.ayu_mirage]
+user = "#d5ff80"
+path = "#ffad66"
+git = "#ffd173"
+lang = "#73d0ff"
+tuios = "#dfbfff"
+err = "#f28779"
+surface = "#3a4152"
+ink = "#1f2430"
+text = "#cccac2"
+
+[palettes.monokai_pro]
+user = "#a9dc76"
+path = "#fc9867"
+git = "#ffd866"
+lang = "#78dce8"
+tuios = "#ab9df2"
+err = "#ff6188"
+surface = "#403e41"
+ink = "#2d2a2e"
+text = "#fcfcfa"
+
+[palettes.oxocarbon]
+user = "#42be65"
+path = "#ff7eb6"
+git = "#ffe97b"
+lang = "#33b1ff"
+tuios = "#be95ff"
+err = "#ee5396"
+surface = "#393939"
+ink = "#161616"
+text = "#f2f4f8"
+
+[palettes.github_dark]
+user = "#3fb950"
+path = "#d29922"
+git = "#e3b341"
+lang = "#58a6ff"
+tuios = "#bc8cff"
+err = "#f85149"
+surface = "#30363d"
+ink = "#0d1117"
+text = "#c9d1d9"
+
+[palettes.flexoki]
+user = "#879a39"
+path = "#da702c"
+git = "#d0a215"
+lang = "#4385be"
+tuios = "#8b7ec8"
+err = "#d14d41"
+surface = "#343331"
+ink = "#100f0f"
+text = "#cecdc3"
+
+[palettes.solarized]
+user = "#859900"
+path = "#cb4b16"
+git = "#b58900"
+lang = "#268bd2"
+tuios = "#6c71c4"
+err = "#dc322f"
+surface = "#073642"
+ink = "#002b36"
+text = "#eee8d5"
+
+[palettes.muted]
+user = "#a4e400"
+path = "#ff9700"
+git = "#f6f557"
+lang = "#62d8f1"
+tuios = "#af87ff"
+err = "#fc1a70"
+surface = "#4a4a4a"
+ink = "#1e1e1e"
+text = "#b0b0b0"
+
+[palettes.muted_nord]
+user = "#8fbcbb"
+path = "#88c0d0"
+git = "#ebcb8b"
+lang = "#81a1c1"
+tuios = "#b48ead"
+err = "#bf616a"
+surface = "#4c566a"
+ink = "#2e3440"
+text = "#d8dee9"
+
+[palettes.muted_rose_pine]
+user = "#9ccfd8"
+path = "#ea9a97"
+git = "#f6c177"
+lang = "#3e8fb0"
+tuios = "#c4a7e7"
+err = "#eb6f92"
+surface = "#44415a"
+ink = "#232136"
+text = "#c0bdd6"

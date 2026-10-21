@@ -67,6 +67,42 @@ export GPG_TTY=$(tty)
 
 # startship
 starship init fish | source
+# one-line starship prompt that only wraps the right side when it won't fit.
+# replaces the fish_prompt/fish_right_prompt that `starship init` defines.
+function __starship_adaptive
+    function fish_prompt
+        set -l st $status
+        set -l ps $pipestatus
+        set -l keymap insert
+        contains -- "$fish_key_bindings" fish_vi_key_bindings fish_hybrid_key_bindings; and set keymap $fish_bind_mode
+        __starship_set_job_count
+        set -l args --terminal-width=$COLUMNS --status=$st --pipestatus="$ps" --keymap=$keymap --cmd-duration="$CMD_DURATION$cmd_duration" --jobs=$STARSHIP_JOBS
+
+        set -l lines (starship prompt $args)
+        set -l right (starship prompt --right $args)
+        set -l n (count $lines)
+        if test $n -lt 2; or test -z "$right"
+            printf '%s\n' $lines[1..-2]
+            printf '%s' $lines[-1]
+            return
+        end
+
+        # everything before the last two lines is the add_newline/clear prefix
+        test $n -gt 2; and printf '%s\n' $lines[1..-3]
+        set -l left $lines[-2]
+        set -l gap (math $COLUMNS - (string length --visible -- $left) - (string length --visible -- $right))
+        if test $gap -ge 1
+            printf '%s%s%s\n' $left (string repeat -n $gap ' ') $right
+        else
+            printf '%s\n%s\n' $left $right
+        end
+        printf '%s' $lines[-1]
+    end
+
+    function fish_right_prompt
+    end
+end
+__starship_adaptive
 
 # Homebrew curl setup for C development
 set -gx LDFLAGS -L/opt/homebrew/opt/curl/lib
@@ -95,3 +131,78 @@ set --export DONE_FILE "~/.config/tuxedo/done.txt"
 # if status is-interactive
 #     test -f "$HOME/Library/Caches/wallust/sequences" && cat "$HOME/Library/Caches/wallust/sequences"
 # end
+
+# fastfetch on new shells, but not inside nvim's terminal
+function fish_greeting
+    set -q NVIM; or fastfetch
+end
+
+# preview / pick starship prompt variants from ~/.config/starship/variants
+function spv --description "preview and switch starship prompt variants"
+    set -l dir ~/.config/starship/variants
+    set -l names (path basename -E $dir/*.toml)
+    set -l active (path basename -E -- "$STARSHIP_CONFIG")
+
+    switch "$argv[1]"
+        case -h --help help
+            echo "spv - preview starship prompt variants"
+            echo
+            echo "usage:"
+            echo "  spv               list variants (* = previewing now)"
+            echo "  spv <name>        preview a variant in this shell only"
+            echo "  spv next | prev   cycle through variants"
+            echo "  spv random        preview a random variant"
+            echo "  spv save [name]   make a variant your real prompt (backs up the old one)"
+            echo "  spv reset         stop previewing, back to ~/.config/starship.toml"
+            echo "  spv -h            this help"
+            echo
+            echo "variants live in $dir"
+        case '' ls list
+            for n in $names
+                if test "$n" = "$active"
+                    echo "* $n"
+                else
+                    echo "  $n"
+                end
+            end
+        case reset
+            set -e STARSHIP_CONFIG
+            echo "back to ~/.config/starship.toml"
+        case next prev
+            set -l i (contains -i -- "$active" $names; or echo 0)
+            set -l n (count $names)
+            if test $argv[1] = next
+                set i (math "$i % $n + 1")
+            else
+                set i (math "($i + $n - 2) % $n + 1")
+            end
+            set -gx STARSHIP_CONFIG $dir/$names[$i].toml
+            echo "previewing $names[$i]"
+        case random
+            set -l pick (random choice $names)
+            set -gx STARSHIP_CONFIG $dir/$pick.toml
+            echo "previewing $pick"
+        case save
+            set -l pick $argv[2]
+            test -z "$pick"; and set pick $active
+            if not contains -- "$pick" $names
+                echo "spv: nothing to save, preview one first or pass a name" >&2
+                return 1
+            end
+            cp ~/.config/starship.toml ~/.config/starship.toml.bak 2>/dev/null
+            cp $dir/$pick.toml ~/.config/starship.toml
+            set -e STARSHIP_CONFIG
+            echo "saved $pick as your prompt (old one at ~/.config/starship.toml.bak)"
+        case '*'
+            if not contains -- "$argv[1]" $names
+                echo "spv: no variant '$argv[1]', run spv to list them" >&2
+                return 1
+            end
+            set -gx STARSHIP_CONFIG $dir/$argv[1].toml
+    end
+end
+complete -c spv -f
+complete -c spv -n __fish_is_first_arg -a "(path basename -E ~/.config/starship/variants/*.toml)" -d variant
+complete -c spv -n __fish_is_first_arg -a "next prev random save reset" -d command
+complete -c spv -n "__fish_seen_subcommand_from save" -a "(path basename -E ~/.config/starship/variants/*.toml)" -d variant
+complete -c spv -s h -l help -d "show help"

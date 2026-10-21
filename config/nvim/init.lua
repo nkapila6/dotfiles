@@ -56,3 +56,4 @@ vim.api.nvim_create_user_command("Header", insert_header, { desc = "Insert custo
 
 -- vim.cmd.colorscheme("neopywal")
 -- vim.cmd.colorscheme("rosepine")
+-- vim.cmd.colorscheme("sanzo")
