@@ -1,0 +1,8 @@
+{
+  "plugins": {
+    "sanzo.nvim": {
+      "rev": "47b46a5b446f24b6c698ac994f6303c515d0732b",
+      "src": "https://codeberg.org/navahas/sanzo.nvim"
+    }
+  }
+}

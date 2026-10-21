@@ -79,13 +79,62 @@ return {
     },
   },
 
+  -- monokai family, all ship snacks highlights
+  {
+    "polirritmico/monokai-nightasty.nvim",
+    lazy = false,
+    opts = {
+      dark_style_background = "default",
+      hl_styles = {
+        comments = { italic = false },
+        keywords = { italic = false },
+      },
+      -- default #4b4b4b line numbers vanish behind kitty's opacity/blur
+      on_highlights = function(hl)
+        hl.LineNr = { fg = "#767676" }
+        hl.LineNrAbove = { fg = "#767676" }
+        hl.LineNrBelow = { fg = "#767676" }
+      end,
+    },
+  },
+
+  {
+    "loctvl842/monokai-pro.nvim",
+    lazy = false,
+    opts = {
+      filter = "pro", -- classic | octagon | machine | ristretto | spectrum
+      styles = {
+        comment = { italic = false },
+        keyword = { italic = false },
+      },
+    },
+  },
+
+  {
+    "sainnhe/sonokai",
+    lazy = false,
+    init = function()
+      vim.g.sonokai_style = "default" -- atlantis | andromeda | shusia | maia | espresso
+      vim.g.sonokai_disable_italic_comment = 1
+      vim.g.sonokai_better_performance = 1
+    end,
+  },
+
+  {
+    url = "https://codeberg.org/navahas/sanzo.nvim",
+    name = "sanzo",
+    lazy = false,
+    priority = 1000,
+  },
+
   -- Configure LazyVim to load the preferred theme
   {
     "LazyVim/LazyVim",
     opts = {
       -- colorscheme = "tokyonight",
       -- colorscheme = "catppuccin",
-      colorscheme = "rose-pine",
+      -- colorscheme = "rose-pine",
+      colorscheme = "sanzo",
     },
   },
 }
