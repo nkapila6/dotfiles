@@ -1,0 +1,33 @@
+# tuiostv: show the video playing in the browser. Each key toggles; a second
+# press of any of them closes whichever viewer is open.
+#   cmd+p        popup in the middle, full quality
+#   cmd+opt+p    corner (tuios's pip view; corner/size from the pip.* settings)
+#   cmd+ctrl+p   a normal tiled pane
+# Needs the tuiostv extension in Firefox/Chrome. Code in ~/dev/gh/tuiostv.
+
+[[keybindings.command]]
+name = "tuiostv-popup"
+key = "prefix+alt+p"
+type = "shell"
+command = "'/Users/nkapila6/dev/gh/tuiostv/tuiostv' popup"
+description = "tuiostv: popup"
+
+[[keybindings.command]]
+name = "tuiostv-corner"
+key = "prefix+alt+o"
+type = "shell"
+command = "'/Users/nkapila6/dev/gh/tuiostv/tuiostv' corner"
+description = "tuiostv: corner"
+
+[[keybindings.command]]
+name = "tuiostv-pane"
+key = "prefix+alt+i"
+type = "shell"
+command = "'/Users/nkapila6/dev/gh/tuiostv/tuiostv' pane"
+description = "tuiostv: pane"
+
+# global so they work in terminal mode too
+[keybindings.global]
+"command:tuiostv-popup" = ["super+p"]
+"command:tuiostv-corner" = ["super+alt+p"]
+"command:tuiostv-pane" = ["super+ctrl+p"]

@@ -1,12 +1,12 @@
 modelRoles:
-  default: ollama-cloud/deepseek-v4-pro
+  default: ollama-cloud/glm-5.3-flash:low
   slow: ollama-cloud/glm-5.3
   plan: ollama-cloud/glm-5.3
   task: ollama-cloud/kimi-k2.7-code
   smol: ollama-cloud/deepseek-v4.1-flash
   tiny: ollama-cloud/deepseek-v4.1-flash
   commit: ollama-cloud/deepseek-v4.1-flash
-  vision: ollama-cloud/mistral-large-4
+  vision: ollama-cloud/glm-5.3-flash:low
   advisor: ollama-cloud/glm-5.3-flash
 symbolPreset: nerd
 composer:
@@ -15,7 +15,7 @@ composer:
 theme:
   dark: dark-monokai
   light: light
-setupVersion: 2
+setupVersion: 3
 advisor:
   enabled: true
   reviewMode: agent-end
@@ -71,6 +71,7 @@ tui:
   textSizing: true
   vimMode: true
   vimModeDisplay: text
+  tight: false
 steeringMode: all
 stt:
   enabled: true
@@ -92,3 +93,11 @@ isolation:
   backend: auto
 speech:
   enabled: false
+dev:
+  autoqaConsent: denied
+display:
+  subagentLivePreview: true
+error:
+  notify: "on"
+update:
+  auto: false

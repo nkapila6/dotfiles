@@ -65,14 +65,16 @@ background-opacity = 1.00
 # font-family = "MesloLGS Nerd Font Mono"
 # font-family = "Hack Nerd Font Mono"
 # font-family = "Iosevka Term"
-font-family = "JetBrainsMono Nerd Font Mono"
+# font-family = "JetBrainsMono Nerd Font Mono"
+font-family = "AnthropicMono Nerd Font Mono"
 font-size = 16
-font-thicken = true
+# font-thicken = true
 # adjust-cell-width = 10%
 mouse-shift-capture = true
 window-padding-x = 0
 window-padding-y = 0
-window-decoration = none
+window-decoration = auto
+macos-titlebar-style = hidden
 
 # quick terminal
 keybind = global:cmd+]=toggle_quick_terminal
@@ -85,3 +87,34 @@ quick-terminal-position = center
 
 # left option sends alt so tuios opt-* binds work
 macos-option-as-alt = left
+
+# hand cmd binds to tuios, same as the no_op maps in kitty.conf
+keybind = super+n=unbind
+keybind = super+w=unbind
+keybind = super+d=unbind
+keybind = super+shift+d=unbind
+keybind = super+[=unbind
+keybind = super+k=unbind
+keybind = super+j=unbind
+keybind = super+shift+j=unbind
+keybind = super+z=unbind
+keybind = super+1=unbind
+keybind = super+digit_1=unbind
+keybind = super+2=unbind
+keybind = super+digit_2=unbind
+keybind = super+3=unbind
+keybind = super+digit_3=unbind
+keybind = super+4=unbind
+keybind = super+digit_4=unbind
+keybind = super+5=unbind
+keybind = super+digit_5=unbind
+keybind = super+6=unbind
+keybind = super+digit_6=unbind
+keybind = super+7=unbind
+keybind = super+digit_7=unbind
+keybind = super+8=unbind
+keybind = super+digit_8=unbind
+keybind = super+9=unbind
+keybind = super+digit_9=unbind
+keybind = super+,=unbind
+keybind = super+.=unbind

@@ -150,3 +150,49 @@ hide_window_buttons = true
 background = "off"
 density = "normal"
 width = 22
+
+# cmd bindings that work without leaving terminal mode. aerospace owns alt and
+# ctrl+h is backspace here, so cmd (super) is the free modifier. kitty passes
+# these through via no_op maps in kitty.conf.
+[keybindings.terminal_mode]
+terminal_focus_left = ["alt+left", "super+h"]
+terminal_focus_down = ["alt+down", "super+j"]
+terminal_focus_up = ["alt+up", "super+k"]
+terminal_focus_right = ["alt+right", "super+l"]
+terminal_exit_mode = ["opt+esc", "super+esc"]
+
+[keybindings.global]
+new_window = ["super+n"]
+close_window = ["super+w"]
+split_vertical = ["super+d"]
+split_horizontal = ["super+shift+d"]
+swap_left = ["super+shift+h"]
+swap_down = ["super+shift+j"]
+swap_up = ["super+shift+k"]
+swap_right = ["super+shift+l"]
+toggle_zoom = ["super+z"]
+rotate_split = ["super+r"]
+next_window = ["super+."]
+prev_window = ["super+,"]
+switch_workspace_1 = ["super+1"]
+switch_workspace_2 = ["super+2"]
+switch_workspace_3 = ["super+3"]
+switch_workspace_4 = ["super+4"]
+switch_workspace_5 = ["super+5"]
+switch_workspace_6 = ["super+6"]
+switch_workspace_7 = ["super+7"]
+switch_workspace_8 = ["super+8"]
+switch_workspace_9 = ["super+9"]
+move_and_follow_1 = ["super+shift+1"]
+move_and_follow_2 = ["super+shift+2"]
+move_and_follow_3 = ["super+shift+3"]
+move_and_follow_4 = ["super+shift+4"]
+move_and_follow_5 = ["super+shift+5"]
+move_and_follow_6 = ["super+shift+6"]
+move_and_follow_7 = ["super+shift+7"]
+move_and_follow_8 = ["super+shift+8"]
+move_and_follow_9 = ["super+shift+9"]
+
+[hosts.t480]
+addr = "nikhi@100.101.197.98"
+command = "tuios"

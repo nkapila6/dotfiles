@@ -1,110 +1,97 @@
 ---
 name: hyperframes-cli
-description: HyperFrames CLI dev loop. Use when running npx hyperframes init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, render, publish, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, docs, benchmark, telemetry, transcribe, tts, or remove-background (validate/inspect/layout are deprecated aliases covered by check), or when troubleshooting the HyperFrames build/render environment. Entry point for AWS Lambda cloud rendering (`hyperframes lambda deploy / render / progress / destroy / policies / sites`).
+description: The HyperFrames CLI by job - scaffold, check, look at frames, edit the timeline, preview, render locally or in the cloud, publish, project history - plus reading its JSON and recovering from build or render failures.
 ---
+
+**Plugin installs:** Before setup or freshness commands, follow [plugin execution rules](../hyperframes/references/plugin-installation.md) when this skill is inside a HyperFrames plugin.
 
 # HyperFrames CLI
 
-Everything runs through `npx hyperframes` unless project instructions specify a local wrapper. Obey the local wrapper exactly. Requires Node.js >= 22 and FFmpeg.
+Run `npx hyperframes <command>` unless the project gives a wrapper; then use the wrapper. It needs Node.js 22+ and FFmpeg. Every command has `--help`; most take `--json`, and a failure prints `✗ …`, a `Fix:` line and exits non-zero.
 
-## Workflow
+## Commands by job
 
-1. **Scaffold** — `npx hyperframes init my-video` (or `capture` from a URL). `init` also checks the installed skills against the latest on GitHub and updates the global set if any are out of date. The `--skip-skills` flag is currently neutered (temporary, while the skills.sh registry catches up), so every `init` runs this check and pulls our latest skills regardless.
-2. **Write** — author HTML composition (see the `hyperframes-core` skill)
-3. **Lint** — `npx hyperframes lint` (static, fast — run it early while iterating)
-4. **Check** — `npx hyperframes check` (the browser gate; add `--snapshots` for annotated frames + per-finding crops)
-5. **Preview / edit** — `npx hyperframes preview` opens **Studio**, the timeline editor where the user can manually edit anything (not just watch). Review there, then ask before rendering.
-6. **Render** — pick the variant:
-   - Iterate: `npx hyperframes render --quality draft`
-   - Deliver: `npx hyperframes render --quality high --output out.mp4`
-   - CI / cross-host repro: `npx hyperframes render --docker --strict --output out.mp4`
-   - Cloud (long / large): `npx hyperframes lambda render ./my-project --width 1920 --height 1080 --wait` (see Lambda below)
-7. **Report feedback** — after verifying the output, `npx hyperframes feedback --rating <1-5> --comment "..."` once per task (see Agent Conventions).
+| Job | Commands |
+| --- | --- |
+| Start | `init <dir>` (blank; `--example <name>` only when asked), `capture <url>` |
+| Read a project | `info`, `compositions`, `timeline --json`, `docs <topic>` |
+| Check it | `lint` while writing; `check --json` as the gate (lint, runtime, layout, contrast) |
+| Look at it | `snapshot` (`--at <t,…>`, `--range START,END`, `--composition <id>`, `--zoom`, `--angle`, `--against <video>`), `keyframes`, `compare`, `audio` |
+| Edit the timeline | `timeline` with `move`, `trim`, `split`, `set`, `duplicate`, `delete`, `apply`, `undo`, `ids` |
+| Reuse | `catalog`, `add` (`/hyperframes-registry`) |
+| Media and sound | `media-treatment`, `grade-compare`, `remove-background`, `tts`, `transcribe`, `beats`, `normalize-audio` (`/media-use`) |
+| Show and ship | `preview`, `present` (`/slideshow`), `render`, `publish`, `cloud`, `lambda`, `cloudrun` |
+| Desktop app | `open`, `catch-up` |
+| Upkeep | `doctor`, `browser`, `upgrade`, `skills`, `usage`, `clean`, `feedback` |
 
-Run `check` before preview. It runs the linter first (and skips the browser entirely on lint errors), then does everything the old validate → inspect → snapshot sequence did in **one** browser session and one seek pass: runtime console errors and failed requests, layout defects (text spilling out of bubbles/containers or off canvas, held overlaps, occlusion), motion-sidecar verification (`*.motion.json` — entrances under seek, stagger order, in-frame, liveness), and WCAG contrast. Contrast failures are errors and carry the sampled fg/bg colors, measured vs required ratio, and a suggested compliant color, so most contrast fixes need no screenshot. Every finding carries a selector, `data-*` identity, composition source file, bbox, and sample time — jump straight to the HTML. Single-sample transients demote to info; findings held across samples gate the exit code (`--strict` gates warnings too). `validate`, `inspect`, and `layout` still work but are deprecated aliases of parts of `check`.
+`validate`, `inspect` and `layout` are deprecated aliases of `check`; `events` is telemetry for skills' own scripts. Don't run them.
 
-For motion-heavy work, prefer snapshot-driven iteration and a `*.motion.json` sidecar — see `references/lint-validate-inspect.md` for the discipline and motion-verification spec. To compare agent-authored candidate variants, use `npx hyperframes compare <path...> [--at <sec>] [--labels a,b,c] [--out compare.png] [--cols n] [--json]` to render each composition through its own runtime, assemble one labeled sheet, inspect it side by side, and choose. For color-grade selection, use the color-specific sibling `npx hyperframes grade-compare --for <frame> --grades grades.json` (or `--luts a.cube,b.cube`) to render every grading candidate through the real WebGL grading runtime into one labeled PNG before choosing the winner.
+## The loop
 
-## Agent Conventions
+1. Write, then `npx hyperframes lint` after the first pass and after structural changes.
+2. `npx hyperframes check --json` and fix every error. While a lint error remains the layout and contrast audits don't run; "0 samples" means nothing was checked. Contrast failures carry a `suggestedColor`. A finding at a single sample (an entrance in flight) is info; a 3 s+ video with no visible change fails `sweep_static`.
+3. `npx hyperframes snapshot` and read the PNGs (under `.hyperframes/artifacts/snapshots/`): that is how you see the video. With sub-compositions, snapshot a midpoint of every scene; tiny unstyled content or a missing hero is a mount defect (`../hyperframes/references/format.md`).
+4. `npx hyperframes preview --background`, check the URL answers 200, give the person the project URL and wait, unless they asked for the file or for no stops. Passing checks alone is not a reason to render.
+5. When it is time to render (step 4): `npx hyperframes render --quality looks --output out.mp4` (`draft` while iterating, `delivery` for the final). Confirm the file is non-empty and its `ffprobe` duration matches the root `data-duration`, then look at decoded frames.
 
-Cross-cutting rules that hold for every command:
+"This element" or the current selection: `npx hyperframes preview --context --json --context-fields selection`; `no-selection` means ask them to click it.
 
-- **`--json` is available on every command except `render`, `preview`, and `play` server modes.** Use it for any agent / CI invocation of the supported commands; output includes a `_meta` envelope (cli version, latest available, update advice). `render` reports status via stdout + exit code only — verify success with the post-render check below. `preview --selection --json` and `preview --context --json` are the preview exceptions: they do not start a server, they query the user's running Studio session and exit.
-- **`doctor --json` always exits 0**, even when the environment is broken. Gate on the payload's `ok` field: `npx hyperframes doctor --json | jq -e '.ok' > /dev/null`. This insulates pipelines from CLI release churn.
-- **Non-TTY mode is auto-detected.** When `stdout` is not a TTY (CI, agents, piped output) the CLI auto-switches to non-interactive; `init` then **requires `--example`**. Pass `--non-interactive` to force this mode even on a TTY.
-- **CI gating on render**: `--strict` fails on lint errors, `--strict-all` fails on warnings too, `--strict-variables` fails on undeclared `--variables` keys.
-- **Correlate a verify loop with `HYPERFRAMES_RUN_ID`.** Orchestrators driving the CLI per task/design element should set this env var once per unit of work; every command invocation attaches it to telemetry, and `check` emits a per-gate breakdown, making roundtrips-per-task measurable.
-- **Paths in `--json` are redacted** — `$HOME` becomes the literal `$HOME` so output is safe to paste into bug reports and agent contexts.
-- **Render is user-gated.** Never auto-render once the checks pass. Pause at `preview`, tell the user the video is editable in Studio, and render only after they approve.
-- **Use Studio context for user-directed edits.** When the user says "this selected element", "the thing I clicked", "current selection", or similar, ask them to select it in Studio, then run `npx hyperframes preview --context --json --context-fields selection`. Use the returned `selection.target.hfId` / `selector`, `selection.sourceFile`, `selection.currentTime`, and `selection.thumbnailUrl` to anchor the edit. If `selection` is `null` and `errors.selection.code` is `no-selection`, ask the user to click the element and rerun; do not guess from screenshots.
-- **Keep Studio context compact.** `preview --context --json` returns compact selection by default. Add `--context-fields selection`, `--context-fields selection,lint`, or `--context-fields lint` to avoid bloating agent context. Use `--context-detail full` only when you need heavy fields like computed styles, inline styles, or text-field metadata.
-- **Post-render verification.** After `render` returns exit 0, confirm the output file exists and has plausible size before reporting success: `[ -s "$OUTPUT" ] || echo "render produced no output"`. The CLI prints `◇  <path>` on success; for long renders also sanity-check duration with `ffprobe -i "$OUTPUT" -show_format -v error`.
-- **Report feedback after a successful render.** Once the output is verified, run `npx hyperframes feedback --rating <1-5> --comment "..."` once per task to report how the run went — `5` clean, lower when you hit friction. Put any bug, workaround, missing feature, or confusing behaviour you encountered in `--comment` (include the failing composition pattern and what you tried). This is the project's primary signal channel; renders that go silent leave the maintainers blind. Skip only when telemetry is disabled or the user opted out.
+## Edit the timeline
 
-## Routing
+These are the edits Studio itself makes, so the result stays in Studio's shape.
 
-| Want to…                                                                                                   | Read                                  |
-| ---------------------------------------------------------------------------------------------------------- | ------------------------------------- |
-| Scaffold a project (`init`, `capture`, `skills`)                                                           | `references/init-and-scaffold.md`     |
-| Check correctness (`lint`, `check`, `snapshot`, deprecated `validate`/`inspect`)                           | `references/lint-validate-inspect.md` |
-| Preview or render (`preview`, `play`, `render`, `publish`)                                                 | `references/preview-render.md`        |
-| Diagnose the environment (`doctor`, `browser`)                                                             | `references/doctor-browser.md`        |
-| Cloud render on AWS Lambda (`lambda deploy / sites / render / progress / destroy / policies`)              | `references/lambda.md`                |
-| Everything else (`info`, `upgrade`, `compositions`, `docs`, `benchmark`, `telemetry`, asset preprocessing) | `references/upgrade-info-misc.md`     |
+- `timeline --json` lists clips with absolute `absStart`/`absEnd`, owning `file` and the `#id` ref the edit commands take (`timeline ids` stamps missing ids).
+- `timeline move|trim|split|set|duplicate|delete <ref> … --plan --json` previews one edit; run it again without `--plan`. `--start`, `--end`, `--duration` set one edge or the length.
+- An edit is refused when the clip would overlap a neighbour (`--overwrite`, or move the neighbour first) or end past its composition: raise the root's `data-duration` first. No command changes `data-duration`.
+- Several edits at once: a JSON file such as `[{"verb": "move", "ref": "#outro", "time": "9"}]`, then `timeline apply plan.json --json`. Each run prints a `receipt`; save it and `timeline undo receipt.json` reverts it.
 
-## Cross-Skill Hand-Offs
+<!-- history (trial): remove this block together with the command -->
 
-- **Tailwind projects** (`init --tailwind`) → use `hyperframes-core` (Tailwind reference) before editing classes or theme tokens.
-- **Registry blocks/components** (`hyperframes add`, `hyperframes catalog`) → use `hyperframes-registry` for install paths, sub-composition wiring, and snippet merging.
-- **Asset preprocessing** (`tts`, `transcribe`, `remove-background`) → use `media-use` for voice selection, Whisper model rules, captions, and TTS-to-captions chain.
-- **Parametrized renders** (`--variables`) → declared via `data-composition-variables` on `<html>`; see `hyperframes-core` for the full schema.
+## Project history
 
-## Lambda (Cloud Rendering)
+Every write is kept and can be undone. At the start of a turn, `npx hyperframes history begin --who <you> --label "<plan>"`, then `history --since mine --who <you>` to see what the person changed; build on their edits. A check failed or they say it got worse: `history undo --who <you>`, never hand-edit back. End the turn with `history end`.
 
-`hyperframes lambda` deploys distributed rendering to AWS Lambda and drives renders from your laptop or CI. End-to-end is three commands:
+<!-- /history (trial) -->
 
-```bash
-npx hyperframes lambda deploy                                             # provision SAM stack (Lambda + Step Functions + S3)
-npx hyperframes lambda render ./my-project --width 1920 --height 1080 --wait
-npx hyperframes lambda destroy                                            # tear down (S3 bucket is retained)
-```
+## Render where
 
-Use Lambda when a render is too long / too large for one host (multi-minute videos, 4K, large parallel batches) and you have AWS credentials configured. For dev-loop iteration stay on local `render`.
+| Need | Command |
+| --- | --- |
+| Local | `render --quality looks --output out.mp4` (`draft`, `delivery`) |
+| Reproducible container | `render --docker --strict --output out.mp4` |
+| Batch from variables | `render --batch rows.json --output "renders/{name}.mp4"` |
+| Hosted, no local Chrome or FFmpeg | `cloud render` (`references/cloud.md`) |
+| Your own AWS or GCP | `lambda render`, `cloudrun render` (`references/lambda.md`, `references/cloudrun.md`) |
 
-See `references/lambda.md` for prerequisites, all 6 subcommands (`deploy`, `sites create`, `render`, `progress`, `destroy`, `policies`), IAM policy validation, state files, and cost / cleanup rules.
+A 30 s film renders in a minute or two: run it in the foreground. Detach only a render longer than your tool's timeout (`HYPERFRAMES_RENDER_DETACHED=1`, its own group, output to a log) and wait with `until grep -qE 'Render (complete|failed)' render.log; do sleep 5; done`, never `pgrep -f`, which matches its own loop and waits until the tool times out.
 
-## Minimum Completion Gate
+After a verified render, send one `feedback --rating`, plus a report for anything the person asked for that HyperFrames can't do, unless telemetry is off: `references/feedback.md`.
 
-```bash
-npx hyperframes check
-```
+## When a command fails
 
-One command covers the old lint + validate + inspect sequence in one browser session. Add `--strict` to gate warnings and `render --strict` in CI to fail on lint errors. `--caption-zone "<x0=..;y0=..;x1=..;y1=..>"` and `--frame-check` add opt-in band/bounds gates for pipelines that need them.
+| Symptom | Fix |
+| --- | --- |
+| Chrome missing or won't start | `npx hyperframes browser ensure`; `doctor --json` always exits 0, gate on `.ok` |
+| A heavy page isn't ready in time | Raise `--timeout` on `check` or `snapshot` |
+| Unusual codec looks blank | Keep `--proxy` on (the default) |
+| Render slow on Linux | The summary's second line says `screenshot` + `software gpu`: the slow path |
+| `capture` fails or writes `BLOCKED.md` | Take nothing from its partial files; retry into a new `-o` folder |
+| Disk tight | `clean --dry-run`, then `clean`; never delete `.hyperframes` (it holds history) |
 
-### Visual smoke test — required when the project uses sub-compositions
+## References
 
-The audits evaluate the bundled composition; they cannot catch every cross-file mount failure when `index.html` mounts sub-compositions via `data-composition-src` (see `hyperframes-core` → `references/sub-compositions.md`, "Common pitfalls"). The gate that catches those is one that actually loads `index.html` the way `render` does and seeks the timeline.
+Read the row before running its command.
 
-Use `hyperframes snapshot` — it loads the project the same way `render` does (so it exercises the same mount path) but only captures the timestamps you request, so it's seconds instead of a full render:
-
-```bash
-# Capture one frame at the midpoint of every sub-composition.
-# Midpoints = data-start + data-duration/2 for each host slot in index.html.
-npx hyperframes snapshot --at <t1>,<t2>,<t3>,...
-
-# Or, if you don't need per-scene targeting, an evenly-spaced sample:
-npx hyperframes snapshot --frames 9
-```
-
-Output lands in `snapshots/frame-NN-at-Xs.png`. Eyeball each frame against the scene plan.
-
-Per-frame red flags (each maps to a specific failure mode the static gates miss):
-
-| What you see                                                                       | Root cause                                                                                  |
-| ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| Text shows up tiny + unstyled in the top-left corner                               | `<style>` block left in `<head>` outside `<template>` (Pitfall 1) — no CSS reached live DOM |
-| SVG/icon elements blown up to canvas-size                                          | Same as above — no width/height constraints applied                                         |
-| Hero element of the scene is missing entirely; only background + watermark visible | Host-id ≠ template id (Pitfall 2) — timeline never ran, frame captured at initial state     |
-| Snapshot command logs `Sub-composition timelines not registered after 45000ms`     | Pitfall 2 — direct confirmation                                                             |
-
-`snapshots/` can be deleted after eyeballing; the user-facing final render is a separate pass with `npx hyperframes render`.
+| Commands | Read |
+| --- | --- |
+| `init`, `capture`, `skills` | `references/init-and-scaffold.md` |
+| `lint`, `check`, motion sidecars, `snapshot` | `references/lint-validate-inspect.md` |
+| `compare`, `grade-compare`, `render --batch` | `references/compare-and-batch.md` |
+| `beats` | `references/beats.md` |
+| `preview`, `play`, `render`, `publish`, Studio context | `references/preview-render.md` |
+| `doctor`, `browser` | `references/doctor-browser.md` |
+| `auth`, `cloud`, template variables | `references/cloud.md` |
+| `lambda`, `cloudrun` | `references/lambda.md`, `references/cloudrun.md` |
+| `info`, `upgrade`, `compositions`, `timeline`, `docs`, `usage`, telemetry | `references/upgrade-info-misc.md` |
+| `--strict` flags, run ids, `clean`, shader lint, JSON paths | `references/conventions.md` |
+| `keyframes` | `../hyperframes/references/motion.md` (Seeing motion) |

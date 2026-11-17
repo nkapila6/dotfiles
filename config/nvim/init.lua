@@ -57,3 +57,9 @@ vim.api.nvim_create_user_command("Header", insert_header, { desc = "Insert custo
 -- vim.cmd.colorscheme("neopywal")
 -- vim.cmd.colorscheme("rosepine")
 -- vim.cmd.colorscheme("sanzo")
+
+vim.keymap.set("n", "<leader>oi", "<cmd>e ~/org/inbox.org<cr>", { desc = "Org inbox" })
+
+vim.keymap.set("n", "<leader>no", function()
+  require("oil").open("~/org")
+end, { desc = "Org files (oil)" })
