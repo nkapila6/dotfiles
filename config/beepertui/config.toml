@@ -1,0 +1,55 @@
+# beepertui settings. Edit here or with `beepertui config set <key> <value>`.
+# Commented lines show the defaults. Env vars (where noted) win over this file.
+
+# nerd font icons and powerline status line (env BEEPERTUI_NERDFONT)
+nerd_font = true
+
+# inline image style; auto picks kitty in Ghostty/kitty (env BEEPERTUI_IMAGES)
+images = "auto"
+
+# how big inline images get
+# image_size = "medium"
+
+# chat avatars in the list
+# avatars = true
+
+# no blank line between senders
+# compact = false
+
+# mouse capture (off gives selection back to the terminal) (env BEEPERTUI_MOUSE)
+# mouse = true
+
+# notifications for new messages (desktop when the terminal is in the background, a toast otherwise), downloads and forwards
+# notifications = true
+
+# show the message text in notifications
+notification_preview = true
+
+# chat list width, percent of the window
+# chat_width = 32
+
+# inbox shown at startup
+# inbox = "primary"
+
+# accent colour: a palette name (blue, cyan, magenta...), 0-15, or #hex
+# accent = "blue"
+
+# GIF search: auto uses whichever key is set (BEEPERTUI_KLIPY_KEY / BEEPERTUI_GIPHY_KEY), else free memegen.link memes
+# gif_provider = "auto"
+
+# Beeper Desktop API address (env BEEPER_URL)
+# beeper_url = "http://localhost:23373"
+
+# colours: terminal (your own), a built-in like catppuccin-mocha, nvim:<colorscheme>, or a file in themes/ (:theme picks) (env BEEPERTUI_THEME)
+theme = "nvim:monokai-nightasty"
+
+# modern: borderless and quiet; classic: boxed panes and coloured pills
+layout = "modern"
+
+# vim normal mode in the compose box: esc goes there instead of leaving, esc again leaves
+vim_compose = true
+
+# start Beeper Desktop hidden in the background when it isn't running (env BEEPERTUI_AUTOSTART)
+# autostart_beeper = true
+
+# key binds you've changed, as key.<action> = "key, key". `beepertui config keys` or :keys lists them all.
